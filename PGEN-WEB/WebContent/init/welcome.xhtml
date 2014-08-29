@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/template.xhtml">
+	<ui:define name="pageTitle">
+		<title>#{content['Project.Name']}</title>
+	</ui:define>
+	<ui:define name="additionsPage">
+
+		<h:outputStylesheet library="css" name="landing-page.css" />
+	</ui:define>
+
+	<ui:define name="body">
+
+
+		<div class="intro-header">
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="intro-message">
+							<h1>Bienvenido a P-Gen</h1>
+							<hr class="intro-divider" />
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- /.container -->
+
+		</div>
+		<!-- /.intro-header -->
+
+		<!-- Page Content -->
+
+		<div class="content-section-a">
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-5 col-sm-6">
+						<hr class="section-heading-spacer" />
+						<div class="clearfix"></div>
+						<h2 class="section-heading">#{content['project.commitment']}</h2>
+						<p class="lead">#{content['project.commitment.description']}</p>
+					</div>
+					<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+						<img class="img-responsive"
+							src="../resources/img/welcome/ipad.png" alt="" />
+					</div>
+				</div>
+
+			</div>
+			<!-- /.container -->
+
+		</div>
+		<!-- /.content-section-a -->
+
+		<div class="content-section-b">
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+						<hr class="section-heading-spacer" />
+						<div class="clearfix"></div>
+						<h2 class="section-heading">#{content['project.mision']}</h2>
+						<p class="lead">#{content['project.mision.description']}</p>
+					</div>
+					<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+						<img class="img-responsive"
+							src="../resources/img/welcome/fotolia.jpg" alt="" />
+					</div>
+				</div>
+
+			</div>
+			<!-- /.container -->
+
+		</div>
+		<!-- /.content-section-b -->
+
+		<div class="content-section-a">
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-5 col-sm-6">
+						<hr class="section-heading-spacer" />
+						<div class="clearfix"></div>
+						<h2 class="section-heading">#{content['project.vision']}</h2>
+						<p class="lead">#{content['project.vision.description']}</p>
+
+					</div>
+					<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+						<img class="img-responsive"
+							src="../resources/img/welcome/phones.png" alt="" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- /.container -->
+		<!-- /.content-section-a -->
+
+		<div class="banner"></div>
+		<!-- /.banner -->
+	</ui:define>
+</ui:composition>

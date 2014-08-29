@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=8;FF=3;OtherUA=4" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="-1" />
+
+	<!-- <link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/bootstrap.css"
+		rel="stylesheet" type="text/css" /> -->
+	<!-- <script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/bootstrap.js" /> -->
+	<!-- <script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" /> -->
+
+
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputScript name="jquery.min.js" library="js" target="head"></h:outputScript>
+	<h:outputStylesheet library="css" name="non-responsive.css" />
+	<h:outputScript library="js" name="bootstrap.js" />
+
+
+</ui:composition>

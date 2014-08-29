@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="PGEN-SCHEMA" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>jdbc/baseDatos</non-jta-data-source>
+		<class>com.app.entity.security.AccesoE</class>
+		<class>com.app.entity.security.AccesosGrupoE</class>
+		<class>com.app.entity.security.AccesosPerfilE</class>
+		<class>com.app.entity.security.GrupoE</class>
+		<class>com.app.entity.security.PerfilE</class>
+		<class>com.app.entity.security.UsuarioE</class>
+	</persistence-unit>
+</persistence>

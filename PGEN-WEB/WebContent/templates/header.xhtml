@@ -1,0 +1,44 @@
+
+<h:form id="header" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<div class="navbar-wrapper">
+
+		<div class="container">
+			<div
+				class="navbar  navbar-fixed-top  #{SessionPB.logged?'navbar-inverse':'navbar-default bs-docs-nav'} "
+				role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand #{SessionPB.logged? '':'bs-docs-nav-text'}"
+							href="#">#{content['Project.Name']}</a>
+					</div>
+					<h:panelGroup rendered="#{SessionPB.logged}">
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav navbar-right"
+								style="margin-right: 5px;">
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown">Nombre del Usuario <span
+										class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><h:commandLink value="#{content['label.profile']}" /></li>
+
+										<li class="divider"></li>
+										<li><h:commandLink value="#{content['label.logout']}"
+												action="#{SessionPB.logOut()}" /></li>
+									</ul></li>
+							</ul>
+						</div>
+					</h:panelGroup>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:form>

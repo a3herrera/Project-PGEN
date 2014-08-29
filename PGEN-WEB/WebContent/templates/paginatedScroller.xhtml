@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:panelGroup layout="horizontal" id="sb18"
+		styleClass="btn-toolbar pager">
+		<div class="btn-group btn-group-sm">
+			<h:commandButton id="bf" action="#{entityPageBean.first}"
+				rendered="#{entityPageBean.previousExists}"
+				styleClass="btn btn-default" alt="#{content['field.first']}"
+				title="#{content['field.first']}" image="/resources/img/first16.png">
+				<f:ajax render="#{render}" />
+			</h:commandButton>
+			<h:graphicImage value="/resources/img/first16d.png"
+				styleClass="btn btn-default" disabled="disabled"
+				rendered="#{!entityPageBean.previousExists}" />
+			#{''}
+
+			<h:commandButton id="bp" action="#{entityPageBean.previous}"
+				rendered="#{entityPageBean.previousExists}"
+				styleClass="btn btn-default" alt="#{content['field.previous']}"
+				title="#{content['field.previous']}" image="/resources/img/prev16.png">
+				<f:ajax render="#{render}" />
+			</h:commandButton>
+			<h:graphicImage value="/resources/img/prev16d.png"
+				styleClass="btn btn-default" disabled="disabled"
+				rendered="#{!entityPageBean.previousExists}" />
+			#{''}
+
+			<h:commandButton id="bn" action="#{entityPageBean.next}"
+				styleClass="btn btn-default" rendered="#{entityPageBean.nextExists}"
+				alt="#{content['field.next']}" title="#{content['field.next']}"
+				image="/resources/img/next16.png">
+				<f:ajax render="#{render}" />
+			</h:commandButton>
+			<h:graphicImage value="/resources/img/next16d.png"
+				styleClass="btn btn-default" disabled="disabled"
+				rendered="#{!entityPageBean.nextExists}" />
+			#{''}
+
+			<h:commandButton id="bl" action="#{entityPageBean.last}"
+				styleClass="btn btn-default" rendered="#{entityPageBean.nextExists}"
+				alt="#{content['field.last']}" title="#{content['field.last']}"
+				image="/resources/img/last16.png">
+				<f:ajax render="#{render}" />
+			</h:commandButton>
+			<h:graphicImage value="/resources/img/last16d.png"
+				styleClass="btn btn-default" disabled="disabled"
+				rendered="#{!entityPageBean.nextExists}" />
+			#{''}
+		</div>
+		<div class="btn-group btn-group-sm">
+			<h:commandButton id="ba" action="#{entityPageBean.addNew}"
+				rendered="#{showAdd}" styleClass="btn btn-default"
+				image="/resources/img/add16.png" alt="#{content['field.new']}"
+				title="#{content['field.new']}">
+				<f:ajax render="#{render}" />
+			</h:commandButton>
+			#{''}
+			<h:commandButton id="br" action="#{entityPageBean.refreshList}"
+				alt="#{content['field.refresh']}" title="#{content['field.refresh']}"
+				styleClass="btn btn-default" image="/resources/img/refresh16.png">
+				<f:ajax render="#{render}" />
+			</h:commandButton>
+		</div>
+			#{''}
+			<div class="btn-group btn-group-sm">
+			<h:outputLabel styleClass="badge"
+				value="#{content['field.page']} #{entityPageBean.currPage} #{content['field.of']} #{entityPageBean.pageCount}" />
+		</div>
+	</h:panelGroup>
+
+
+
+
+</ui:composition>
