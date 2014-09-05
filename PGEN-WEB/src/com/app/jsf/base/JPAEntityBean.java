@@ -23,7 +23,6 @@ public class JPAEntityBean<E> extends JPAEntityBase<E> {
 	@Override
 	protected EntityManager getEM() {
 		// TODO Auto-generated method stub
-		System.out.println("Ingresando aqui");
 		return getEMF().createEntityManager();
 	}
 

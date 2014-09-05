@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<h:form id="menu" xmlns="http://www.w3.org/1999/xhtml"
+<h:form id="subMenu" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-	<div style="margin-top: 15px;">
-		<ul class="nav nav-sidebar">
-			<li><h:commandLink action="main" value="Dashboard" /></li>
-			<ui:repeat var="o" value="#{SessionPB.padres}">
+	<div style="margin-top: 10px;">
+		<ol class="breadcrumb">
+			<ui:repeat var="o" value="#{SessionPB.hijos}">
 				<li><h:commandLink action="#{SessionPB.navegacion}"
 						value="#{o.titulo}">
 						<f:setPropertyActionListener value="#{o.url}"
 							target="#{SessionPB.action}" />
 					</h:commandLink></li>
 			</ui:repeat>
-		</ul>
+		</ol>
 	</div>
 </h:form>

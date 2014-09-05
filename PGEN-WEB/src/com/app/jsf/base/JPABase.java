@@ -55,7 +55,6 @@ public class JPABase<E> extends Base {
 
 	protected E createEntity(E entity, EntityManager em) throws Exception {
 		em.persist(entity);
-		em.refresh(entity);
 		return entity;
 	}
 
@@ -65,8 +64,7 @@ public class JPABase<E> extends Base {
 	 */
 
 	protected E updateEntity(E entity, EntityManager em) throws Exception {
-		em.persist(entity);
-		em.refresh(entity);
+		em.merge(entity);
 		return entity;
 	}
 

@@ -4,16 +4,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	template="/templates/template.xhtml">
-	
+
 	<ui:define name="pageTitle">
-		<title>#{content['Project.Name']}</title>
+		<title>#{content['field.title.dashboard']}</title>
 	</ui:define>
 	<ui:define name="additionsPage">
 		<h:outputStylesheet library="css" name="dashboard.css" />
 	</ui:define>
 
 	<ui:define name="body">
-		<h1 class="page-header">Dashboard</h1>
+		<h1 class="page-header">#{content['field.title.dashboard']}</h1>
 		<div class="row placeholders">
 			<div class="col-xs-6 col-sm-3 placeholder">
 				<img src="../resources/img/emoticon_smile.png"

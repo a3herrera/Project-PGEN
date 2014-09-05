@@ -41,6 +41,8 @@ public class JPAEntityBase<E> extends JPABase<E> {
 	protected String updateNR = "update";
 	protected String removeNR = "remove";
 
+	protected String add = "add";
+
 	public void clear() {
 		listEntity = null;
 		countEntity = null;
@@ -60,7 +62,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 	protected String getListQL() {
 		if (Utils.isEmtpy(listQL)) {
 			listQL = "Select e from " + getClassName().getSimpleName() + " e";
-			if (Utils.isEmtpy(whereQL)) {
+			if (!Utils.isEmtpy(whereQL)) {
 				listQL += whereQL;
 			}
 		}
@@ -69,8 +71,9 @@ public class JPAEntityBase<E> extends JPABase<E> {
 
 	protected String getCountQL() {
 		if (Utils.isEmtpy(countQL)) {
-			countQL = "Select e from " + getClassName().getSimpleName() + " e";
-			if (Utils.isEmtpy(whereQL)) {
+			countQL = "Select count(e) from " + getClassName().getSimpleName()
+					+ " e";
+			if (!Utils.isEmtpy(whereQL)) {
 				countQL += whereQL;
 			}
 		}
@@ -116,10 +119,10 @@ public class JPAEntityBase<E> extends JPABase<E> {
 	public String newEntity() throws Exception {
 		entity = newInstace();
 		idEntity = null;
-		return newNR;
+		return add;
 	}
 
-	public boolean isNewEntity() {
+	public boolean isNew() {
 		return getIdEntity() == null;
 	}
 
@@ -160,7 +163,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 				if (beforeSave(em)) {
 					em.getTransaction().begin();
 					try {
-						if (isNewEntity()) {
+						if (isNew()) {
 							createEntity(entity, em);
 						} else {
 							updateEntity(entity, em);
@@ -178,7 +181,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 			} finally {
 				em.close();
 			}
-			if (isNewEntity()) {
+			if (isNew()) {
 				infMsg(msgCreate);
 				return newNR;
 			} else {
@@ -187,6 +190,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 			}
 		} catch (Exception ex) {
 			// logger la Exception
+			System.out.println(ex);
 		}
 		return null;
 	}
@@ -248,6 +252,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 			} catch (Exception e) {
 				// logger the Exception
 				countEntity = 0;
+				System.out.println(e);
 			} finally {
 				em.close();
 			}
@@ -326,6 +331,10 @@ public class JPAEntityBase<E> extends JPABase<E> {
 
 	public boolean getNextExists() {
 		return page < getPageCount();
+	}
+
+	public void refreshList() {
+		clear();
 	}
 
 }

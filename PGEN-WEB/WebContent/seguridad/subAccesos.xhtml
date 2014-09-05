@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f3">
+		<h:panelGroup style="min-width: 500px;" id="pnl">
+			<table class="form-group" style="width: 100%">
+				<tr>
+					<td><p:outputLabel value="#{content['label.title']}"
+							for="sbTitulo" /></td>
+					<td><h:inputText value="#{accesosPB.subAcceso.titulo}"
+							styleClass="form-control " id="sbTitulo" required="true"
+							requiredMessage="El campo es requerido" /></td>
+					<td width="25px;" />
+					<td><p:outputLabel value="#{content['label.state']}"
+							for="sbEstado" /></td>
+					<td><h:selectBooleanCheckbox id="sbEstado"
+							value="#{accesosPB.subAcceso.estado}" /></td>
+				</tr>
+				<tr>
+					<td colspan="4"><p:message for="sbTitulo" display="text" /></td>
+				</tr>
+				<tr>
+					<td><p:outputLabel value="#{content['label.url']}" for="sbUrl" /></td>
+					<td><h:inputText value="#{accesosPB.subAcceso.url}"
+							styleClass="form-control " id="sbUrl" required="true"
+							requiredMessage="El campo es requerido" /></td>
+					<td width="25px;" />
+					<td><p:outputLabel value="#{content['label.redirect']}"
+							for="sbRedirect" /></td>
+					<td><h:selectBooleanCheckbox id="sbRedirect"
+							value="#{accesosPB.subAcceso.redireccionamiento}" /></td>
+				</tr>
+				<tr>
+					<td colspan="4"><p:message for="sbUrl" display="text" /></td>
+				</tr>
+				<tr>
+					<td colspan="4"><p:messages id="messages" showDetail="true"
+							globalOnly="true" showSummary="false" autoUpdate="true"
+							closable="true" /></td>
+				</tr>
+			</table>
+			<div class="pager">
+				<p:commandButton actionListener="#{accesosPB.addSubAcceso()}"
+					update="pnl" value="#{content['field.save']}"
+					styleClass="btn btn-default" process="@this,f3">
+				</p:commandButton>
+				<p:commandButton value="#{content['field.cancel']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg2').hide();">
+				</p:commandButton>
+			</div>
+		</h:panelGroup>
+	</h:form>
+</ui:composition>

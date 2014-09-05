@@ -6,8 +6,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,7 +21,6 @@ import javax.persistence.TemporalType;
  * <ul>
  * <li>Alta: Fecha en la que el registro fue ingresado a la BD</li>
  * <li>Modificado: Fecha ultima en la que el registro fue modificado</li>
- * <li>Estado: Indica el estado actual del registro</li>
  * <ul>
  * </blockquote>
  * 
@@ -54,16 +51,6 @@ public class registroEMB {
 
 	public void setRegModificación(Date regModificación) {
 		this.regModificación = regModificación;
-	}
-	
-	@PrePersist
-	public void registroNuevo(){
-		setRegCreacion(new Date());
-	}
-	
-	@PreUpdate
-	public void registroCambios(){
-		setRegModificación(new Date());
 	}
 
 }

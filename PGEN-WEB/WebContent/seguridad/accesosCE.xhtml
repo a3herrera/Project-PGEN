@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f2">
+
+		<div style="min-width: 500px;">
+			<h:panelGroup id="pnl1">
+				<table class="form-group" style="width: 100%">
+					<tr>
+						<td><p:outputLabel value="#{content['label.title']}"
+								for="accTitulo" /></td>
+						<td><h:inputText value="#{accesosPB.entity.titulo}"
+								styleClass="form-control" id="accTitulo" required="true"
+								requiredMessage="El campo es requerido" /></td>
+						<td width="25px;" />
+						<td>#{content['label.state']}</td>
+						<td><h:selectBooleanCheckbox
+								value="#{accesosPB.entity.estado}" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><p:message for="accTitulo" display="text" /></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="#{content['label.url']}"
+								for="accURL" /></td>
+						<td><h:inputText value="#{accesosPB.entity.url}"
+								styleClass="form-control " id="accURL" required="true"
+								requiredMessage="El campo es requerido" /></td>
+						<td width="25px;" />
+						<td>#{content['label.redirect']}</td>
+						<td><h:selectBooleanCheckbox
+								value="#{accesosPB.entity.redireccionamiento}" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><p:message for="accURL" display="text" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><p:messages id="messages1" showDetail="true"
+								globalOnly="true" showSummary="false" autoUpdate="true"
+								closable="true" /></td>
+					</tr>
+				</table>
+			</h:panelGroup>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					#{content['field.title.Access.son']}
+					<div class="pull-right">
+						<div class="btn-group">
+							<p:commandLink value="#{content['field.new']}" ajax="true"
+								styleClass="btn btn-default btn-xs" update=":dialog2"
+								action="#{accesosPB.newSubAcceso}"
+								oncomplete="PF('dlg2').show();">
+
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+
+					<p:panel id="tbl2">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><p:outputLabel value="#{content['label.title']}" /></th>
+									<th><p:outputLabel value="#{content['label.state']}" /></th>
+									<th><p:outputLabel value="#{content['label.url']}" /></th>
+									<th><p:outputLabel value="#{content['label.redirect']}" />
+									</th>
+									<th><p:outputLabel value="#{content['label.options']}" />
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<ui:repeat var="subAcc" value="#{accesosPB.entity.accesoE}">
+									<tr>
+										<td><p:commandLink value="#{subAcc.titulo}"
+												action="#{accesosPB.edicion()}" update=":dialog2"
+												oncomplete="PF('dlg2').show();">
+												<f:setPropertyActionListener value="#{subAcc}"
+													target="#{accesosPB.tempAcc}" />
+												<f:setPropertyActionListener value="#{subAcc.ID}"
+													target="#{accesosPB.idSubAcceso}" />
+											</p:commandLink></td>
+										<td>#{subAcc.estado?
+											content['label.enabled']:content['label.disabled']}</td>
+										<td>#{subAcc.url}</td>
+										<td>#{subAcc.redireccionamiento?
+											content['label.yes']:content['label.no']}</td>
+										<td><p:commandLink value="#{content['field.delete']}"
+												action="#{accesosPB.removeSubAcceso()}"
+												styleClass="btn btn-default btn-xs">
+												<f:setPropertyActionListener value="#{subAcc}"
+													target="#{accesosPB.tempAcc}" />
+											</p:commandLink></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</p:panel>
+				</div>
+			</div>
+			<div class="pager">
+				<p:commandButton action="#{accesosPB.saveEntity()}" update="pnl1"
+					value="#{content['field.save']}" styleClass="btn btn-default">
+				</p:commandButton>
+				<p:commandButton value="#{content['field.cancel']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg1').hide();">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+
+</ui:composition>

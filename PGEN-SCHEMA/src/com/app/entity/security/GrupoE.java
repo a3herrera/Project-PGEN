@@ -1,6 +1,7 @@
 package com.app.entity.security;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -22,6 +25,7 @@ import org.eclipse.persistence.annotations.Index;
 
 import com.app.entity.embedded.registroEMB;
 import com.app.utils.ConstantsEntity;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * Entity implementation class for Entity: Grupos
@@ -116,6 +120,17 @@ public class GrupoE implements Serializable {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	@PrePersist
+	private void per() {
+		setRegistro(new registroEMB());
+	
+	}
+
+	@PreUpdate
+	private void upd() {
+
 	}
 
 }

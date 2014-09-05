@@ -3,6 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<ui:include src="/templates/head.xhtml" />
@@ -15,12 +16,10 @@
 
 		<h:panelGroup rendered="#{SessionPB.logged? 'true':'false'}">
 			<div class="col-xs-2">
-
 				<ui:include src="/templates/menu.xhtml" />
 			</div>
 		</h:panelGroup>
 		<div class="#{SessionPB.logged? 'col-xs-10':''}">
-
 			<ui:insert name="body" />
 		</div>
 	</div>

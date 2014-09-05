@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" template="/seguridad/admin.xhtml">
+	<ui:define name="subBody">
+		<h3 class="page-header">#{content['field.title.Acces']}</h3>
+		<h:form id="f1">
+			<div class="panel panel-default" style="margin-top: -5px;">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.list']}
+					<div class="pull-right">
+						<div class="btn-group">
+							<p:commandLink value="#{content['field.new']}"
+								styleClass="btn btn-default btn-xs" ajax="true" update=":dialog"
+								action="#{accesosPB.newEntity}" oncomplete="PF('dlg1').show();">
+
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="morris-area-chart">
+
+						<table class="table table-hover ">
+							<thead>
+								<tr>
+									<th><p:outputLabel value="#{content['label.title']}" /></th>
+									<th><p:outputLabel value="#{content['label.state']}" /></th>
+									<th><p:outputLabel value="#{content['label.url']}" /></th>
+									<th><p:outputLabel value="#{content['label.redirect']}" />
+									</th>
+									<th><p:outputLabel value="#{content['label.options']}" />
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<ui:repeat var="acc" value="#{accesosPB.paginatedList}">
+									<tr>
+										<td><p:commandLink value="#{acc.titulo}"
+												action="#{accesosPB.edicion()}" update=":dialog"
+												oncomplete="PF('dlg1').show();">
+												<f:setPropertyActionListener value="#{acc.ID}"
+													target="#{accesosPB.idEntity}" />
+
+											</p:commandLink></td>
+										<td>#{acc.estado?
+											content['label.enabled']:content['label.disabled']}</td>
+										<td>#{acc.url}</td>
+										<td>#{acc.redireccionamiento?
+											content['label.yes']:content['label.no']}</td>
+										<td width="45px;"><p:commandLink
+												value="#{content['field.delete']}"
+												action="#{accesosPB.delete()}" update=":f1"
+												styleClass="btn btn-danger btn-xs">
+												<f:setPropertyActionListener value="#{acc.ID}"
+													target="#{accesosPB.idEntity}" />
+											</p:commandLink></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="5"><ui:include
+											src="/templates/paginatedScroller.xhtml">
+											<ui:param name="entityPageBean" value="#{accesosPB}" />
+											<ui:param name="render" value="f1" />
+											<ui:param name="showAdd" value="false" />
+										</ui:include></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<p:dialog
+			header="#{accesosPB.new? content['field.title.Access.New']:content['field.title.Access.Edit']}"
+			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
+			id="dialog" closable="false" appendTo="@(body)">
+			<ui:include src="/seguridad/accesosCE.xhtml" />
+
+		</p:dialog>
+		<p:dialog
+			header="#{accesosPB.newSub? content['field.title.Access.New']:content['field.title.Access.Edit']}"
+			widgetVar="dlg2" modal="true" resizable="false" draggable="false"
+			id="dialog2" closable="false" appendTo="@(body)">
+			<ui:include src="/seguridad/subAccesos.xhtml" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>

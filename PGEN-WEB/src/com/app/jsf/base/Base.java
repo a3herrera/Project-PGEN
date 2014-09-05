@@ -232,19 +232,19 @@ public class Base implements Serializable {
 		addMessage(id, summary, detail, warnLvl);
 	}
 
-	protected void errorLvl(String summary) {
+	protected void errorMsg(String summary) {
 		addUniqueMessage(summary, null, errorLvl);
 	}
 
-	protected void errorLvl(String summary, String detail) {
+	protected void errorMsg(String summary, String detail) {
 		addUniqueMessage(summary, detail, errorLvl);
 	}
 
-	protected void errLvl(String id, String summary) {
+	protected void errMsg(String id, String summary) {
 		addMessage(id, summary, null, errorLvl);
 	}
 
-	protected void errLvl(String id, String summary, String detail) {
+	protected void errMsg(String id, String summary, String detail) {
 		addMessage(id, summary, detail, errorLvl);
 	}
 	

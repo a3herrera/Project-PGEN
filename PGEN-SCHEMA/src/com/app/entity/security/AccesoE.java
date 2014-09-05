@@ -1,6 +1,7 @@
 package com.app.entity.security;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,9 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.app.entity.embedded.registroEMB;
 import com.app.utils.ConstantsEntity;
@@ -25,11 +30,14 @@ import com.app.utils.ConstantsEntity;
  * Entity implementation class for Entity: AccesoE
  *
  *
- * <p>En esta clase se van a estar manejando los diferentes accesos que va a tener el sistema</p>
- * <p>En esta clase se van a estar manejando los diferentes accesos que va a tener el sistema</p>
- * <p>En esta clase se van a estar manejando los diferentes accesos que va a tener el sistema</p>
- * <p>En esta clase se van a estar manejando los diferentes accesos que va a tener el sistema</p>
- * @author Raul Monzon
+ * <p>
+ * <code>AccesosE</code> es una clase anotada con las propiedades de JPA
+ * </p>
+ * <p>
+ * Tiene como objetivo el mapeo de las propiedades de los accesos del sistema
+ * </p>
+ * 
+ * @author Angel Alfaro
  */
 @Entity
 @Table(name = "ACCESOS")
@@ -51,10 +59,6 @@ public class AccesoE implements Serializable {
 
 	private registroEMB registro;
 
-	public AccesoE() {
-		super();
-	}
-
 	@Id
 	@Column(name = "ID_ACCESO", updatable = false)
 	@GeneratedValue(generator = "SEQ_ACCESO_ID", strategy = GenerationType.SEQUENCE)
@@ -66,6 +70,7 @@ public class AccesoE implements Serializable {
 		this.ID = ID;
 	}
 
+	@NotNull(message = "{campo.not.null}")
 	@Column(name = "URL", nullable = true)
 	public String getUrl() {
 		return this.url;
@@ -84,6 +89,8 @@ public class AccesoE implements Serializable {
 		this.redireccionamiento = redireccionamiento;
 	}
 
+	@NotNull(message = "{campo.not.null}")
+	@Size(message = "{campo.size.max}", max = ConstantsEntity.accesoPerfilAccionesSize)
 	@Column(name = "TITULO", nullable = false, length = ConstantsEntity.accesoTituloSize)
 	public String getTitulo() {
 		return titulo;
@@ -148,4 +155,14 @@ public class AccesoE implements Serializable {
 		this.accesoE = accesoE;
 	}
 
+	@PrePersist
+	private void per() {
+		setRegistro(new registroEMB());
+		getRegistro().setRegCreacion(new Date());
+	}
+
+	@PreUpdate
+	private void upd() {
+		getRegistro().setRegModificación(new Date());
+	}
 }

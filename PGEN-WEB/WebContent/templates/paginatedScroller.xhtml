@@ -55,7 +55,7 @@
 			#{''}
 		</div>
 		<div class="btn-group btn-group-sm">
-			<h:commandButton id="ba" action="#{entityPageBean.addNew}"
+			<h:commandButton id="ba" action="#{entityPageBean.newEntity}"
 				rendered="#{showAdd}" styleClass="btn btn-default"
 				image="/resources/img/add16.png" alt="#{content['field.new']}"
 				title="#{content['field.new']}">
@@ -74,8 +74,4 @@
 				value="#{content['field.page']} #{entityPageBean.currPage} #{content['field.of']} #{entityPageBean.pageCount}" />
 		</div>
 	</h:panelGroup>
-
-
-
-
 </ui:composition>

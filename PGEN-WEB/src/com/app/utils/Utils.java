@@ -7,6 +7,7 @@ package com.app.utils;
  * */
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 enum EncryptionType {
 	MD2("MD2"), MD5("MD5"), SHA1("SHA-1"), SHA256("SHA-256"), SHA384("SHA-384"), SHA512(
@@ -67,5 +68,23 @@ public class Utils {
 		messageDigest.update(buffer);
 		digest = messageDigest.digest();
 		return toHexadecimal(digest);
+	}
+
+	/**
+	 * <p>
+	 * Valida si una lista no esta inicializada o esta vacia
+	 * </p>
+	 * 
+	 * @param <E>
+	 * */
+	public static <E> boolean isEmptyList(List<E> list) {
+		return (list == null || list.isEmpty());
+	}
+
+	public static boolean compareString(String a, String b, boolean IgnoreCase) {
+		if (IgnoreCase) {
+			return a.equals(b);
+		}
+		return a.equalsIgnoreCase(b);
 	}
 }
