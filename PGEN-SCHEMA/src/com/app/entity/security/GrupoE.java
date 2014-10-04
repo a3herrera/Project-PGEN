@@ -20,12 +20,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
 import org.eclipse.persistence.annotations.Index;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.app.entity.embedded.registroEMB;
 import com.app.utils.ConstantsEntity;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * Entity implementation class for Entity: Grupos
@@ -65,6 +67,9 @@ public class GrupoE implements Serializable {
 		this.ID = ID;
 	}
 
+	@NotBlank(message = "{campo.not.null}")
+	@NotEmpty(message = "{campo.not.null}")
+	@Size(max = ConstantsEntity.grupoNombreSize, message = "{campo.size.max}")
 	@Column(name = "NOMBRE", length = ConstantsEntity.grupoNombreSize, nullable = false)
 	public String getNombre() {
 		return this.nombre;
@@ -75,6 +80,8 @@ public class GrupoE implements Serializable {
 	}
 
 	@Lob
+	@NotBlank(message = "{campo.not.null}")
+	@NotEmpty(message = "{campo.not.null}")
 	@Column(name = "DESCRIPCION", nullable = false)
 	public String getDescripción() {
 		return this.descripción;
@@ -95,7 +102,7 @@ public class GrupoE implements Serializable {
 	}
 
 	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE,
-			CascadeType.PERSIST, CascadeType.REFRESH }, orphanRemoval = false, fetch = FetchType.LAZY, mappedBy = "grupoID")
+			CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE }, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "grupoID")
 	public List<AccesosGrupoE> getAccesosGrupo() {
 		return accesosGrupo;
 	}
@@ -125,12 +132,12 @@ public class GrupoE implements Serializable {
 	@PrePersist
 	private void per() {
 		setRegistro(new registroEMB());
-	
+		getRegistro().setRegCreacion(new Date());
 	}
 
 	@PreUpdate
 	private void upd() {
-
+		getRegistro().setRegModificación(new Date());
 	}
 
 }

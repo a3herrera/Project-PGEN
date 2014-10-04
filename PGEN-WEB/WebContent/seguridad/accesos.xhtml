@@ -14,9 +14,9 @@
 						<div class="btn-group">
 							<p:commandLink value="#{content['field.new']}"
 								styleClass="btn btn-default btn-xs" ajax="true" update=":dialog"
-								action="#{accesosPB.newEntity}" oncomplete="PF('dlg1').show();">
+								action="#{accesosPB.newEntity}" oncomplete="PF('dlg1').show();"/>
 
-							</p:commandLink>
+							
 						</div>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 				<div class="panel-body">
 					<div id="morris-area-chart">
 
-						<table class="table table-hover ">
+						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th><p:outputLabel value="#{content['label.title']}" /></th>
@@ -46,11 +46,11 @@
 													target="#{accesosPB.idEntity}" />
 
 											</p:commandLink></td>
-										<td>#{acc.estado?
-											content['label.enabled']:content['label.disabled']}</td>
-										<td>#{acc.url}</td>
-										<td>#{acc.redireccionamiento?
-											content['label.yes']:content['label.no']}</td>
+										<td><small>#{acc.estado?
+											content['label.enabled']:content['label.disabled']}</small></td>
+										<td><small>#{acc.url}</small></td>
+										<td><small>#{acc.redireccionamiento?
+											content['label.yes']:content['label.no']}</small></td>
 										<td width="45px;"><p:commandLink
 												value="#{content['field.delete']}"
 												action="#{accesosPB.delete()}" update=":f1"
@@ -81,7 +81,6 @@
 			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
 			id="dialog" closable="false" appendTo="@(body)">
 			<ui:include src="/seguridad/accesosCE.xhtml" />
-
 		</p:dialog>
 		<p:dialog
 			header="#{accesosPB.newSub? content['field.title.Access.New']:content['field.title.Access.Edit']}"

@@ -3,14 +3,21 @@ package com.app.utils;
 public class ConstantsEntity {
 
 	/*
+	 * Expresion regulares
+	 */
+
+	public static final String erAlfabetico = "";
+	public static final String erNumerico = "";
+	public static final String erAlfaNumerico = "";
+
+	/*
 	 * Constantes de la Entidad GrupoE
 	 */
 	public static final int grupoSecuenciaInit = 20;
 	public static final int grupoSecuenciaAllocation = 1;
 
 	public static final int grupoNombreSize = 50;
-	
-	
+
 	/*
 	 * Constantes de la Entidad PerfilE
 	 */
@@ -18,7 +25,7 @@ public class ConstantsEntity {
 	public static final int perfilSecuenciaAllocation = 1;
 
 	public static final int perfilNombreSize = 50;
-	
+
 	/*
 	 * Constantes de la Entidad accesoE
 	 */
@@ -38,9 +45,9 @@ public class ConstantsEntity {
 	 */
 	public static final int accesoPerfilSecuenciaInit = 20;
 	public static final int accesoPerfilAllocation = 1;
-	
+
 	public static final int accesoPerfilAccionesSize = 20;
-	
+
 	/*
 	 * Constantes de la Entidad UsuarioE
 	 */

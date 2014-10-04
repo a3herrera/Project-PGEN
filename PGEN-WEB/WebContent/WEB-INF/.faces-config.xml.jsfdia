@@ -8,20 +8,10 @@
    <PROCESS-ITEM-OUTPUT ID="login::#init#login.xhtml" NAME="output1"
     PATH="/init/login.xhtml" TARGET="rules:#init#login.xhtml"
     TITLE="login" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="grupos::#seguridad#Grupos.xhtml"
-    NAME="output2" PATH="/seguridad/Grupos.xhtml"
-    TARGET="rules:#seguridad#Grupos.xhtml" TITLE="grupos" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="accesos::#seguridad#Accesos.xhtml"
-    NAME="output3" PATH="/seguridad/Accesos.xhtml"
-    TARGET="rules:#seguridad#Accesos.xhtml" TITLE="accesos" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#init#dashboard.xhtml"
   PATH="/init/dashboard.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#init#login.xhtml" PATH="/init/login.xhtml"
   SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#seguridad#Grupos.xhtml"
-  PATH="/seguridad/Grupos.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#seguridad#Accesos.xhtml"
-  PATH="/seguridad/Accesos.xhtml" SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

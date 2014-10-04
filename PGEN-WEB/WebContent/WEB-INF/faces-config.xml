@@ -14,14 +14,6 @@
    <to-view-id>/init/login.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
-  <navigation-case>
-   <from-outcome>grupos</from-outcome>
-   <to-view-id>/seguridad/Grupos.xhtml</to-view-id>
-  </navigation-case>
-  <navigation-case>
-   <from-outcome>accesos</from-outcome>
-   <to-view-id>/seguridad/Accesos.xhtml</to-view-id>
-  </navigation-case>
  </navigation-rule>
  <application>
   <locale-config>

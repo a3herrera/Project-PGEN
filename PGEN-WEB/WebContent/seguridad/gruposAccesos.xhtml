@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f3">
+		<div style="min-width: 500px;">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th><p:outputLabel value="#{content['label.title']}" /></th>
+						<th><p:outputLabel value="#{content['label.state']}" /></th>
+						<th><p:outputLabel value="#{content['label.url']}" /></th>
+						<th><p:outputLabel value="#{content['label.redirect']}" /></th>
+						<th><p:outputLabel value="#{content['label.options']}" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<ui:repeat var="acc" value="#{gruposPB.accesos}">
+						<tr>
+							<td>#{acc.titulo}</td>
+							<td>#{acc.estado}</td>
+							<td>#{acc.url}</td>
+							<td>#{acc.redireccionamiento}</td>
+							<td><p:commandLink value="#{content['field.add']}"
+									action="#{gruposPB.addAcceso()}"
+									styleClass="btn btn- btn-default" update=":f3 :f2:pg2">
+									<f:setPropertyActionListener value="#{acc}"
+										target="#{gruposPB.acceso}" />
+								</p:commandLink></td>
+						</tr>
+					</ui:repeat>
+				</tbody>
+			</table>
+			<div class="pager">
+				<p:commandButton value="#{content['field.close']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg2').hide();" update=":f2:pg2">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

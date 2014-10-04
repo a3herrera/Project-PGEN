@@ -17,8 +17,9 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand #{SessionPB.logged? '':'bs-docs-nav-text'}"
-							href="#">#{content['Project.Name']}</a>
+						<h:commandLink action="main" value="#{content['Project.Name']}"
+							styleClass="navbar-brand #{SessionPB.logged? '':'bs-docs-nav-text'}" />
+
 					</div>
 					<h:panelGroup rendered="#{SessionPB.logged}">
 						<div class="navbar-collapse collapse">

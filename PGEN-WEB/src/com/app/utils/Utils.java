@@ -87,4 +87,32 @@ public class Utils {
 		}
 		return a.equalsIgnoreCase(b);
 	}
+
+	/**
+	 * <p>
+	 * Convierte un valor de tipo <code>String</code> a un valor de tipo
+	 * <code>Integer</code>
+	 * </p>
+	 * 
+	 * @param cast
+	 * 
+	 *            Valor que se va a castear a <code>Integer</code>
+	 * 
+	 * @param defaultValue
+	 * 
+	 *            Valor que se va a estar retornando cuando no se pueda castear
+	 *            el valor deseado
+	 * 
+	 * @return un numero de tipo integer
+	 */
+	public static int strToInteger(String cast, int defaultValue) {
+		if (!isEmtpy(cast)) {
+			try {
+				return Integer.parseInt(cast);
+			} catch (NumberFormatException e) {
+				return defaultValue;
+			}
+		}
+		return defaultValue;
+	}
 }

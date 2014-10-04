@@ -26,7 +26,7 @@ public class AccesosPageBean extends JPAEntityBean<AccesoE> {
 
 	public AccesosPageBean() {
 		// TODO Auto-generated constructor stub
-		super.add = "/seguridad/AccesosEditar.xhtml?faces-redirect=true";
+		super.add = null;
 		super.newNR = null;
 		super.updateNR = null;
 		super.removeNR = null;
@@ -40,8 +40,7 @@ public class AccesosPageBean extends JPAEntityBean<AccesoE> {
 		return null;
 	}
 
-	public void edicion() {
-	}
+	
 
 	private Map<String, Object> parameters;
 	private static final String QL_ACCESO = "select count(e) from AccesoE e where upper(e.titulo) = :titulo and e.padreID is null and e.esPadre = true";
@@ -76,47 +75,18 @@ public class AccesosPageBean extends JPAEntityBean<AccesoE> {
 	}
 
 	@Override
-	public String saveEntity() {
-		try {
-			EntityManager em = getEM();
-			try {
-				if (beforeSave(em)) {
-					em.getTransaction().begin();
-					try {
-						if (isNew()) {
-							createEntity(entity, em);
-						} else {
-							updateEntity(entity, em);
-						}
-						afterSave(em);
-						em.getTransaction().commit();
-					} catch (RuntimeException e) {
-						if (em.getTransaction().isActive())
-							em.getTransaction().rollback();
-						throw e;
-					}
-				} else {
-					return null;
-				}
-			} finally {
-				em.close();
-			}
-			if (isNew()) {
-				infMsg(msgCreate);
-				RequestContext.getCurrentInstance().update("f1");
-				RequestContext.getCurrentInstance().execute("dlg1.hide()");
-				return newNR;
-			} else {
-				infMsg(msgUpdate);
-				RequestContext.getCurrentInstance().update("f1");
-				RequestContext.getCurrentInstance().execute("dlg1.hide()");
-				return updateNR;
-			}
-		} catch (Exception ex) {
-			// logger la Exception
-			ex.printStackTrace();
+	protected String navigationOption() {
+		if (isNew()) {
+			infMsg(msgCreate);
+			RequestContext.getCurrentInstance().update("f1");
+			RequestContext.getCurrentInstance().execute("dlg1.hide()");
+			return newNR;
+		} else {
+			infMsg(msgUpdate);
+			RequestContext.getCurrentInstance().update("f1");
+			RequestContext.getCurrentInstance().execute("dlg1.hide()");
+			return updateNR;
 		}
-		return null;
 	}
 
 	/*
@@ -234,7 +204,7 @@ public class AccesosPageBean extends JPAEntityBean<AccesoE> {
 	private List<AccesoE> eliminados;
 
 	public void removeSubAcceso() {
-	
+
 		if (eliminados == null) {
 			eliminados = new ArrayList<AccesoE>();
 		}
@@ -270,5 +240,6 @@ public class AccesosPageBean extends JPAEntityBean<AccesoE> {
 	public List<AccesoE> getTempList() {
 		return tempList;
 	}
+
 
 }

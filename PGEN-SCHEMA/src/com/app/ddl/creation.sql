@@ -88,11 +88,16 @@ CREATE TABLE PERFILES(
       ID_PERFIL               NUMBER(19)                          NOT NULL,
       ID_GRUPO                NUMBER(19)                          NOT NULL, 
       NOMBRE                  VARCHAR2(50)                        NOT NULL,
+      ESTADO				  NUMBER(1,0)		DEFAULT 0		  NOT NULL,
       REG_CREACION            TIMESTAMP         DEFAULT SYSDATE   NOT NULL,
       REG_ULT_MODIFICACION    TIMESTAMP,
       VERSION                 NUMBER(19),
       PRIMARY KEY (ID_PERFIL)
 );
+
+ALTER TABLE PERFILES 
+    ADD CONSTRAINT CK_TBL_PRF_ESTADO 
+    CHECK (ESTADO BETWEEN 0 AND 1);
 
 ALTER TABLE PERFILES 
     ADD CONSTRAINT FK_PERFILES_ID_GRUPO 

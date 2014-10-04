@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" template="/seguridad/admin.xhtml">
+	<ui:define name="subBody">
+		<h3 class="page-header">#{content['field.title.Groups']}</h3>
+		<h:form id="f1">
+			<div class="panel panel-default" style="margin-top: -5px;">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.list']}
+					<div class="pull-right">
+						<div class="btn-group">
+							<p:commandLink value="#{content['field.new']}"
+								styleClass="btn btn-default btn-xs" ajax="true" update=":dlg1"
+								action="#{gruposPB.newEntity}" oncomplete="PF('dlg1').show();" />
+						</div>
+					</div>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="morris-area-chart">
+
+						<table class="table table-hover ">
+							<thead>
+								<tr>
+									<th><p:outputLabel value="#{content['label.name']}" /></th>
+									<th><p:outputLabel value="#{content['label.description']}" /></th>
+									<th><p:outputLabel value="#{content['label.options']}" />
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<ui:repeat var="grp" value="#{gruposPB.paginatedList}">
+									<tr>
+										<td><p:commandLink value="#{grp.nombre}"
+												action="#{gruposPB.edicion()}" update=":dlg1"
+												oncomplete="PF('dlg1').show();">
+												<f:setPropertyActionListener value="#{grp.ID}"
+													target="#{gruposPB.idEntity}" />
+											</p:commandLink></td>
+										<td><small>#{grp.descripción}</small></td>
+										<td width="45px;"><p:commandLink
+												value="#{content['field.delete']}" update=":f1"
+												styleClass="btn btn-danger btn-xs" action="#{gruposPB.delete()}">
+												<f:setPropertyActionListener value="#{grp.ID}" target="#{gruposPB.idEntity}" />
+											</p:commandLink></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="5"><ui:include
+											src="/templates/paginatedScroller.xhtml">
+											<ui:param name="entityPageBean" value="#{gruposPB}" />
+											<ui:param name="render" value="f1" />
+											<ui:param name="showAdd" value="false" />
+										</ui:include></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<p:dialog
+			header="#{gruposPB.new? content['field.title.Access.New']:content['field.title.Access.Edit']}"
+			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
+			id="dlg1" closable="false" appendTo="@(body)">
+			<ui:include src="/seguridad/gruposCE.xhtml" />
+		</p:dialog>
+
+
+		<p:dialog id="dlg2" widgetVar="dlg2" modal="true" resizable="false"
+			draggable="false" closable="false" appendToBody="@(body)"
+			header="#{content['field.title.Acces']}">
+			<ui:include src="/seguridad/gruposAccesos.xhtml" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>

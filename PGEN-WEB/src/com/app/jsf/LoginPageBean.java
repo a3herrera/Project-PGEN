@@ -10,6 +10,7 @@ import com.app.entity.security.AccesoE;
 import com.app.entity.security.UsuarioE;
 import com.app.jsf.base.LoginBeanBase;
 import com.app.utils.Constants;
+import com.app.utils.Utils;
 
 @SessionScoped
 @ManagedBean(name = "SessionPB")
@@ -44,24 +45,19 @@ public class LoginPageBean extends LoginBeanBase<UsuarioE> {
 		List<AccesoE> urls = new ArrayList<AccesoE>();
 		AccesoE grupo = new AccesoE();
 		grupo.setTitulo("Grupos");
-		grupo.setUrl("/seguridad/admin.xhtml?faces-redirect=false");
+		grupo.setUrl("/seguridad/grupos.xhtml?faces-redirect=false");
 
 		AccesoE accesos = new AccesoE();
 		accesos.setTitulo("Accesos");
 		accesos.setUrl("/seguridad/accesos.xhtml?faces-redirect=false");
 
-		AccesoE user = new AccesoE();
-		user.setTitulo("Usuarios");
-		user.setUrl("/seguridad/Accesos.xhtml?faces-redirect=false");
-
-		AccesoE profile = new AccesoE();
-		profile.setTitulo("Perfil");
-		profile.setUrl("/seguridad/Accesos.xhtml?faces-redirect=false");
-
+		AccesoE perfil = new AccesoE();
+		perfil.setTitulo("Perfiles");
+		perfil.setUrl("/seguridad/perfiles.xhtml?faces-redirect=false");
+		
 		urls.add(accesos);
 		urls.add(grupo);
-		urls.add(profile);
-		urls.add(user);
+		urls.add(perfil);
 
 		return urls;
 	}

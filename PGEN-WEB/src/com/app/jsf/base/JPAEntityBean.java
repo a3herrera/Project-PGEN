@@ -26,4 +26,7 @@ public class JPAEntityBean<E> extends JPAEntityBase<E> {
 		return getEMF().createEntityManager();
 	}
 
+	
+	public void edicion() {
+	}
 }

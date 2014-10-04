@@ -32,6 +32,7 @@ public class PerfilE implements Serializable {
 
 	private long ID;
 	private String nombre;
+	private boolean estado;
 
 	private GrupoE grupoID;
 
@@ -59,6 +60,15 @@ public class PerfilE implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Column(name = "ESTADO", nullable = false)
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 	@ManyToOne

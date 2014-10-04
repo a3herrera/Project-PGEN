@@ -18,7 +18,6 @@ import javax.persistence.criteria.Selection;
  * <p>
  * <code>JPABase</code> provides the basic operations to be performed on
  * DataBase with JPA
- * </p>
  * 
  * @author Angel Alfaro
  * */
@@ -53,7 +52,7 @@ public class JPABase<E> extends Base {
 		return getClassName().newInstance();
 	}
 
-	protected E createEntity(E entity, EntityManager em) throws Exception {
+	public E createEntity(E entity, EntityManager em) throws Exception {
 		em.persist(entity);
 		return entity;
 	}
@@ -63,32 +62,32 @@ public class JPABase<E> extends Base {
 	 * Exception { return null; }
 	 */
 
-	protected E updateEntity(E entity, EntityManager em) throws Exception {
+	public E updateEntity(E entity, EntityManager em) throws Exception {
 		em.merge(entity);
 		return entity;
 	}
 
-	protected void deleteEntity(Object id, EntityManager em) throws Exception {
+	public void deleteEntity(Object id, EntityManager em) throws Exception {
 		em.remove(findEntity(id, em));
 	}
 
-	protected E findEntity(Object id, EntityManager em) {
+	public E findEntity(Object id, EntityManager em) {
 		return em.find(getClassName(), id);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected E findEntity(String QL, EntityManager em) throws Exception {
+	public E findEntity(String QL, EntityManager em) throws Exception {
 		return (E) createQuery(QL, 0, 0, null, em).getSingleResult();
 	}
 
 	@SuppressWarnings("unchecked")
-	protected E findEntity(String QL, Map<String, Object> params,
+	public E findEntity(String QL, Map<String, Object> params,
 			EntityManager em) throws Exception {
 		return (E) createQuery(QL, 0, 0, params, em).getSingleResult();
 	}
 
 	@SuppressWarnings("unchecked")
-	protected List<E> findListEntity(EntityManager em) throws Exception {
+	public List<E> findListEntity(EntityManager em) throws Exception {
 		CriteriaQuery<E> cq = (CriteriaQuery<E>) em.getCriteriaBuilder()
 				.createQuery();
 		cq.select(cq.from(getClassName()));
@@ -96,30 +95,30 @@ public class JPABase<E> extends Base {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected List<E> findListE(String QL, EntityManager em) throws Exception {
+	public List<E> findListE(String QL, EntityManager em) throws Exception {
 		return createQuery(QL, 0, 0, null, em).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	protected List<E> findListE(String QL, Map<String, Object> params,
+	public List<E> findListE(String QL, Map<String, Object> params,
 			EntityManager em) throws Exception {
 		return createQuery(QL, 0, 0, params, em).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	protected List<E> findListE(String QL, int init, int maxResult,
+	public List<E> findListE(String QL, int init, int maxResult,
 			EntityManager em) throws Exception {
 		return createQuery(QL, init, maxResult, null, em).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	protected List<E> findListE(String QL, int init, int maxResult,
+	public List<E> findListE(String QL, int init, int maxResult,
 			Map<String, Object> params, EntityManager em) {
 		return createQuery(QL, init, maxResult, params, em).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	protected int countE(EntityManager em) {
+	public int countE(EntityManager em) {
 		CriteriaQuery<E> cq = (CriteriaQuery<E>) em.getCriteriaBuilder()
 				.createQuery();
 		Root<E> rt = cq.from(getClassName());
@@ -128,23 +127,23 @@ public class JPABase<E> extends Base {
 		return ((Long) q.getSingleResult()).intValue();
 	}
 
-	protected int countE(String QL, EntityManager em) throws Exception {
+	public int countE(String QL, EntityManager em) throws Exception {
 		return ((Number) createQuery(QL, 0, 0, null, em).getSingleResult())
 				.intValue();
 	}
 
-	protected int countE(String QL, Map<String, Object> params, EntityManager em)
+	public int countE(String QL, Map<String, Object> params, EntityManager em)
 			throws Exception {
 		return ((Number) createQuery(QL, 0, 0, params, em).getSingleResult())
 				.intValue();
 	}
 
-	protected int countE(String QL, int init, int maxResult, EntityManager em) {
+	public int countE(String QL, int init, int maxResult, EntityManager em) {
 		return ((Number) createQuery(QL, init, maxResult, null, em)
 				.getSingleResult()).intValue();
 	}
 
-	protected int countE(String QL, int init, int maxResult,
+	public int countE(String QL, int init, int maxResult,
 			Map<String, Object> params, EntityManager em) {
 		return ((Number) createQuery(QL, init, maxResult, params, em)
 				.getSingleResult()).intValue();

@@ -156,6 +156,16 @@ public class JPAEntityBase<E> extends JPABase<E> {
 		countEntity = null;
 	}
 
+	protected String navigationOption() {
+		if (isNew()) {
+			infMsg(msgCreate);
+			return newNR;
+		} else {
+			infMsg(msgUpdate);
+			return updateNR;
+		}
+	}
+
 	public String saveEntity() {
 		try {
 			EntityManager em = getEM();
@@ -181,16 +191,11 @@ public class JPAEntityBase<E> extends JPABase<E> {
 			} finally {
 				em.close();
 			}
-			if (isNew()) {
-				infMsg(msgCreate);
-				return newNR;
-			} else {
-				infMsg(msgUpdate);
-				return updateNR;
-			}
-		} catch (Exception ex) {
-			// logger la Exception
-			System.out.println(ex);
+
+			return navigationOption();
+		} catch (Exception e) {
+			// Meter a un logger la excepcion que esta lanzando al momento de guardar
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -226,10 +231,12 @@ public class JPAEntityBase<E> extends JPABase<E> {
 			} finally {
 				em.close();
 			}
+			clear();
 			infMsg(msgRemove);
 			return removeNR;
 		} catch (Exception e) {
 			// logger la Exception
+			e.printStackTrace();
 		}
 		return null;
 	}

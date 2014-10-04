@@ -1,6 +1,7 @@
 package com.app.entity.security;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -25,7 +28,7 @@ import com.app.utils.ConstantsEntity;
  */
 @Entity
 @Table(name = "GRUPO_ACCESOS")
-@Index(name = "IDX_GRUPO_ACCESOS", columnNames = { "ID_GRUPO","ID_ACCESO" })
+@Index(name = "IDX_GRUPO_ACCESOS", columnNames = { "ID_GRUPO", "ID_ACCESO" })
 @SequenceGenerator(name = "SEQ_GRP_ACC_ID", allocationSize = ConstantsEntity.accesoGrupoAllocation, initialValue = ConstantsEntity.accesoGrupoSecuenciaInit)
 public class AccesosGrupoE implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -88,6 +91,17 @@ public class AccesosGrupoE implements Serializable {
 
 	public void setRegistro(registroEMB registro) {
 		this.registro = registro;
+	}
+
+	@PrePersist
+	private void persi() {
+		setRegistro(new registroEMB());
+		getRegistro().setRegCreacion(new Date());
+	}
+
+	@PreUpdate
+	private void upd() {
+		getRegistro().setRegModificación(new Date());
 	}
 
 }
