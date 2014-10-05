@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f2">
+		<div style="min-width: 500px;">
+			<h:panelGroup id="pnlG1">
+				<table style="with: 100%">
+					<tr>
+						<td><p:outputLabel value="#{content['label.name']}" for="i1" /></td>
+						<td><h:inputText value="#{perfilPB.entity.nombre}"
+								styleClass="form-control" id="i1" style="width:250px;" /></td>
+						<td width="15px;" />
+						<td><p:outputLabel value="#{content['label.state']}" for="i2" /></td>
+						<td><h:selectBooleanCheckbox id="i2" 
+								value="#{perfilPB.entity.estado}" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><p:message for="i1"></p:message></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel value="#{content['field.title.Groups']}" /></td>
+						<td><h:selectOneMenu value="#{perfilPB.grupoID}"
+								style="width:250px;"
+								styleClass="form-control #{perfilPB.new? 'disabled':''}"
+								disabled="#{!perfilPB.new}">
+								<f:selectItems value="#{perfilPB.grupoUI}" />
+							</h:selectOneMenu></td>
+					</tr>
+				</table>
+			</h:panelGroup>
+			<br />
+			<div class="pager">
+				<p:commandButton action="#{perfilPB.saveEntity()}" update="pnlG1"
+					value="#{content['field.save']}" styleClass="btn btn-default">
+				</p:commandButton>
+				<p:commandButton value="#{content['field.cancel']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg1').hide();">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

@@ -81,8 +81,8 @@ public class JPABase<E> extends Base {
 	}
 
 	@SuppressWarnings("unchecked")
-	public E findEntity(String QL, Map<String, Object> params,
-			EntityManager em) throws Exception {
+	public E findEntity(String QL, Map<String, Object> params, EntityManager em)
+			throws Exception {
 		return (E) createQuery(QL, 0, 0, params, em).getSingleResult();
 	}
 
@@ -90,7 +90,7 @@ public class JPABase<E> extends Base {
 	public List<E> findListEntity(EntityManager em) throws Exception {
 		CriteriaQuery<E> cq = (CriteriaQuery<E>) em.getCriteriaBuilder()
 				.createQuery();
-		cq.select(cq.from(getClassName()));
+		cq.select(cq.from(className));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -143,6 +143,22 @@ public class JPABase<E> extends Base {
 				.getSingleResult()).intValue();
 	}
 
+	/**
+	 * <p>
+	 * Realiza un conteo de registros de la entidad
+	 * </p>
+	 * 
+	 * @param QL
+	 *            jpql a usar para la busqueda
+	 * @param init
+	 * @param maxResult
+	 *            maximos de resultados a realizar en la busqueda
+	 * @param params
+	 *            parametros solicitados en el JPQL
+	 * @param em
+	 *            EntityManager
+	 * @return conteo devuelto de la busqueda realizada de la entidad
+	 */
 	public int countE(String QL, int init, int maxResult,
 			Map<String, Object> params, EntityManager em) {
 		return ((Number) createQuery(QL, init, maxResult, params, em)
