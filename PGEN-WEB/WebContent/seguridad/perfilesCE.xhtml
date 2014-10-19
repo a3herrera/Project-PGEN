@@ -14,7 +14,7 @@
 								styleClass="form-control" id="i1" style="width:250px;" /></td>
 						<td width="15px;" />
 						<td><p:outputLabel value="#{content['label.state']}" for="i2" /></td>
-						<td><h:selectBooleanCheckbox id="i2" 
+						<td><h:selectBooleanCheckbox id="i2"
 								value="#{perfilPB.entity.estado}" /></td>
 					</tr>
 					<tr>
@@ -23,15 +23,62 @@
 					<tr>
 						<td><p:outputLabel value="#{content['field.title.Groups']}" /></td>
 						<td><h:selectOneMenu value="#{perfilPB.grupoID}"
-								style="width:250px;"
-								styleClass="form-control #{perfilPB.new? 'disabled':''}"
-								disabled="#{!perfilPB.new}">
+								style="width:250px;" disabled="#{!perfilPB.new}"
+								styleClass="form-control #{perfilPB.new? 'disabled':''}">
 								<f:selectItems value="#{perfilPB.grupoUI}" />
+								<f:ajax listener="#{perfilPB.valueGrupoChange}" render="pg2"></f:ajax>
+								
 							</h:selectOneMenu></td>
 					</tr>
 				</table>
 			</h:panelGroup>
 			<br />
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					#{content['field.title.Acces.principal']}
+					<div class="pull-right">
+						<div class="btn-group">
+							<p:commandLink  title="#{content['field.new']}"  ajax="true"
+								styleClass="btn btn-default btn-xs" update=":dlg2"
+								action="#{perfilPB.edicion()}" oncomplete="PF('dlg2').show();">
+								<span class="glyphicon glyphicon-plus"> </span>
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<h:panelGroup id="pg2" style="width: 100%">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><p:outputLabel value="#{content['label.title']}" /></th>
+									<th><p:outputLabel value="#{content['label.state']}" /></th>
+									<th><p:outputLabel value="#{content['label.redirect']}" /></th>
+									<th />
+								</tr>
+							</thead>
+							<tbody>
+								<ui:repeat var="acc" value="#{perfilPB.accesosPadreEntity}">
+									<tr>
+										<td><p:commandLink value="#{acc.titulo}"
+												oncomplete="PF('dlg3').show();" update=":dlg3">
+												<f:setPropertyActionListener value="#{acc.ID}"
+													target="#{perfilPB.idAccesoPadre}" />
+											</p:commandLink></td>
+										<td>#{acc.url}</td>
+										<td>#{acc.redireccionamiento?
+											content['label.yes']:content['label.no']}</td>
+										<td><p:commandLink 
+												styleClass="btn btn-default btn-xs">
+												<span class="glyphicon glyphicon-minus"> </span>
+											</p:commandLink></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:panelGroup>
+				</div>
+			</div>
 			<div class="pager">
 				<p:commandButton action="#{perfilPB.saveEntity()}" update="pnlG1"
 					value="#{content['field.save']}" styleClass="btn btn-default">

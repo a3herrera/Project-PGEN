@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f4">
+		<div style="min-width: 500px;">
+			<div class="row" style="width: 475px">
+				<h:panelGroup styleClass="col-md-6" id="pg3T1">
+				#{content['field.title.acc.notIn']}
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th />
+								<th width="25px" />
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="acc" value="#{perfilPB.accesosHijos}">
+								<tr>
+									<td><h:outputText value="#{acc.titulo}"
+											title="#{content['label.url']}  :  #{acc.url}"></h:outputText></td>
+									<td><p:commandLink styleClass="btn btn-default btn-xs"
+											action="#{perfilPB.AsignarAcceso()}" update=":f4">
+											<span class="glyphicon glyphicon-plus"> </span>
+											<f:setPropertyActionListener value="#{acc}" target="#{perfilPB.accesoHijo}" />
+										</p:commandLink></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</h:panelGroup>
+				<h:panelGroup styleClass="col-md-6" id="pg3T2">
+				#{content['field.title.acc.in']}
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th />
+								<th width="25px" />
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="accA" value="#{perfilPB.accesosAsignados}">
+								<tr>
+									<td><h:outputText value="#{accA.titulo}"
+											title="#{content['label.url']}  :  #{accA.url}"></h:outputText></td>
+									<td><p:commandLink styleClass="btn btn-default btn-xs" action="#{perfilPB.DesasignarAcceso()}" update=":f4">
+											<span class="glyphicon glyphicon-minus"> </span>
+											<f:setPropertyActionListener value="#{accA}" target="#{perfilPB.accesoHijo}" />
+										</p:commandLink></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</h:panelGroup>
+			</div>
+		</div>
+		<div class="pager">
+			<p:commandButton value="#{content['field.close']}"
+				styleClass="btn btn-default" immediate="true"
+				oncomplete="PF('dlg3').hide();">
+			</p:commandButton>
+		</div>
+	</h:form>
+</ui:composition>

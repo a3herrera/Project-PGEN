@@ -1,6 +1,7 @@
 package com.app.entity.security;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -10,11 +11,14 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -43,7 +47,7 @@ public class AccesosPerfilE implements Serializable {
 
 	private long ID;
 	private PerfilE perfilID;
-	private AccesosGrupoE acceso;
+	private AccesoE acceso;
 
 	private List<Acciones> acciones;
 
@@ -78,13 +82,14 @@ public class AccesosPerfilE implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "ID_ACCESO", nullable = false, insertable = true, updatable = true)
-	public AccesosGrupoE getAcceso() {
+	public AccesoE getAcceso() {
 		return acceso;
 	}
 
-	public void setAcceso(AccesosGrupoE acceso) {
+	public void setAcceso(AccesoE acceso) {
 		this.acceso = acceso;
 	}
+
 
 	@Version
 	public long getVersion() {
@@ -104,10 +109,10 @@ public class AccesosPerfilE implements Serializable {
 		this.registro = registro;
 	}
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "PERFIL_ACCIONES", joinColumns = @JoinColumn(name = "PERFIL_ID"))
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ACCION", nullable = false, length=ConstantsEntity.accesoPerfilAccionesSize)
+	@Column(name = "ACCION", nullable = false, length = ConstantsEntity.accesoPerfilAccionesSize)
 	public List<Acciones> getAcciones() {
 		return acciones;
 	}
@@ -116,4 +121,14 @@ public class AccesosPerfilE implements Serializable {
 		this.acciones = acciones;
 	}
 
+	@PrePersist
+	private void per() {
+		setRegistro(new registroEMB());
+		getRegistro().setRegCreacion(new Date());
+	}
+
+	@PreUpdate
+	private void upd() {
+		getRegistro().setRegModificación(new Date());
+	}
 }

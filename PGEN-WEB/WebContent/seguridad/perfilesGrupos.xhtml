@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f3">
+		<div style="min-width: 500px;">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#{content['label.title']}</th>
+								<th>#{content['label.url']}</th>
+								<th style="width:50px;"/>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="grp" value="#{perfilPB.accesosPadre}">
+								<tr>
+									<td>#{grp.titulo}</td>
+									<td>#{grp.url}</td>
+									<td style="width:50px;"><p:commandLink styleClass="btn btn-default btn-xs"
+											title="#{content['field.add']}" update=":f3 :f2:pg2" action="#{perfilPB.addAcceso()}">
+											<f:setPropertyActionListener value="#{grp}" target="#{perfilPB.acceso}" />
+											<span class="glyphicon glyphicon-plus"> </span>
+										</p:commandLink></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="pager">
+			<p:commandButton value="#{content['field.close']}"
+				styleClass="btn btn-default" immediate="true"
+				oncomplete="PF('dlg2').hide();">
+			</p:commandButton>
+
+		</div>
+	</h:form>
+</ui:composition>

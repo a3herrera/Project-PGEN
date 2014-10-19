@@ -10,7 +10,6 @@ import com.app.entity.security.AccesoE;
 import com.app.entity.security.UsuarioE;
 import com.app.jsf.base.LoginBeanBase;
 import com.app.utils.Constants;
-import com.app.utils.Utils;
 
 @SessionScoped
 @ManagedBean(name = "SessionPB")
@@ -34,7 +33,7 @@ public class LoginPageBean extends LoginBeanBase<UsuarioE> {
 		List<AccesoE> urls = new ArrayList<AccesoE>();
 
 		AccesoE admin = new AccesoE();
-		admin.setTitulo("Administración");
+		admin.setTitulo("Seguridad");
 		admin.setUrl("/seguridad/admin.xhtml?faces-redirect=true");
 
 		urls.add(admin);
@@ -55,9 +54,14 @@ public class LoginPageBean extends LoginBeanBase<UsuarioE> {
 		perfil.setTitulo("Perfiles");
 		perfil.setUrl("/seguridad/perfiles.xhtml?faces-redirect=false");
 		
+		AccesoE usuario = new AccesoE();
+		usuario.setTitulo("Usuarios");
+		usuario.setUrl("/seguridad/usuarios.xhtml?faces-redirect=false");
+		
 		urls.add(accesos);
 		urls.add(grupo);
 		urls.add(perfil);
+		urls.add(usuario);
 
 		return urls;
 	}

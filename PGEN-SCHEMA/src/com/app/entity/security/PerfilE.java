@@ -40,6 +40,7 @@ public class PerfilE implements Serializable {
 	private GrupoE grupoID;
 
 	private List<UsuarioE> usuarios;
+	private List<AccesosPerfilE> accesosPerfil;
 
 	private registroEMB registro;
 
@@ -110,6 +111,15 @@ public class PerfilE implements Serializable {
 
 	public void setUsuarios(List<UsuarioE> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "perfilID")
+	public List<AccesosPerfilE> getAccesosPerfil() {
+		return accesosPerfil;
+	}
+
+	public void setAccesosPerfil(List<AccesosPerfilE> accesosPerfil) {
+		this.accesosPerfil = accesosPerfil;
 	}
 
 	@PrePersist

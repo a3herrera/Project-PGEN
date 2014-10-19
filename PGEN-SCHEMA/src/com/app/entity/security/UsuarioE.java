@@ -1,6 +1,7 @@
 package com.app.entity.security;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -110,4 +113,15 @@ public class UsuarioE implements Serializable {
 		this.version = version;
 	}
 
+	@PrePersist
+	private void per() {
+		setRegistro(new registroEMB());
+		getRegistro().setRegCreacion(new Date());
+	}
+
+	@PreUpdate
+	private void upd() {
+		getRegistro().setRegModificación(new Date());
+	}
+	
 }

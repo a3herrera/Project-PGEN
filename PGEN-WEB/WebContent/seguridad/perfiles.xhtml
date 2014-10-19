@@ -12,11 +12,11 @@
 					<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.list']}
 					<div class="pull-right">
 						<div class="btn-group">
-							<p:commandLink value="#{content['field.new']}"
+							<p:commandLink title="#{content['field.new']}"
 								styleClass="btn btn-default btn-xs" ajax="true" update=":dlg1"
-								action="#{perfilPB.newEntity}" oncomplete="PF('dlg1').show();" />
-
-
+								action="#{perfilPB.newEntity}" oncomplete="PF('dlg1').show();">
+								<span class="glyphicon glyphicon-plus"> </span>
+							</p:commandLink>
 						</div>
 					</div>
 				</div>
@@ -64,6 +64,16 @@
 			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
 			id="dlg1" closable="false" appendTo="@(body)">
 			<ui:include src="/seguridad/perfilesCE.xhtml" />
+		</p:dialog>
+		<p:dialog header="#{content['field.title.Acces']}" widgetVar="dlg2"
+			id="dlg2" modal="true" resizable="false" draggable="false"
+			closable="false" appendTo="@(body)">
+			<ui:include src="/seguridad/perfilesGrupos.xhtml" />
+		</p:dialog>
+		<p:dialog header="#{content['field.title.Acces']}" widgetVar="dlg3"
+			id="dlg3" modal="true" resizable="false" draggable="false"
+			closable="false" appendTo="@(body)">
+			<ui:include src="/seguridad/perfilesAccesos.xhtml" />
 		</p:dialog>
 	</ui:define>
 </ui:composition>
