@@ -9,21 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-enum EncryptionType {
-	MD2("MD2"), MD5("MD5"), SHA1("SHA-1"), SHA256("SHA-256"), SHA384("SHA-384"), SHA512(
-			"SHA-512");
 
-	EncryptionType(String type) {
-		this.type = type;
-	}
-
-	private String type;
-
-	public String getType() {
-		return type;
-	}
-
-}
 
 public class Utils {
 
@@ -59,7 +45,7 @@ public class Utils {
 	 *            SHA-256, SHA-384, SHA-512
 	 * @return mensaje encriptado
 	 */
-	public static String getStringMessageDigest(String message,
+	public static String getEncriptyonMessage(String message,
 			EncryptionType type) throws NoSuchAlgorithmException {
 		byte[] digest = null;
 		byte[] buffer = message.getBytes();

@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" template="/seguridad/admin.xhtml">
+	<ui:define name="subBody">
+		<h3 class="page-header">#{content['field.title.users']}</h3>
+		<h:form id="f1">
+			<div class="panel panel-default" style="margin-top: -5px;">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.list']}
+					<div class="pull-right">
+						<div class="btn-group">
+							<p:commandLink value="#{content['field.new']}"
+								styleClass="btn btn-default btn-xs" ajax="true" update=":dialog"
+								action="#{usuarioPB.newEntity}" oncomplete="PF('dlg1').show();"/>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="morris-area-chart">
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><p:outputLabel value="#{content['field.title.users']}" /></th>
+									<th><p:outputLabel value="#{content['label.state']}" /></th>
+									<th><p:outputLabel value="#{content['field.title.Group']}" /></th>
+									<th><p:outputLabel value="#{content['label.profile']}" />
+									</th>
+									<th/>
+								</tr>
+							</thead>
+							<tbody>
+								<ui:repeat var="usr" value="#{usuarioPB.paginatedList}">
+									<tr>
+										<td><p:commandLink value="#{usr.usuario}"
+												action="#{usuarioPB.edicion()}" update=":dialog"
+												oncomplete="PF('dlg1').show();">
+												<f:setPropertyActionListener value="#{usr.ID}"
+													target="#{usuarioPB.idEntity}" />
+											</p:commandLink></td>
+										<td><small>#{usr.estado}</small></td>
+										<td><small> #{usr.perfilID.grupoID.nombre} </small></td>
+										<td><small> #{usr.perfilID.nombre} </small></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="5"><ui:include
+											src="/templates/paginatedScroller.xhtml">
+											<ui:param name="entityPageBean" value="#{usuarioPB}" />
+											<ui:param name="render" value="f1" />
+											<ui:param name="showAdd" value="false" />
+										</ui:include></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<p:dialog
+			header="#{accesosPB.new? content['field.title.user.new']:content['field.title.user.edit']}"
+			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
+			id="dialog" closable="false" appendTo="@(body)">
+			<ui:include src="/seguridad/usuariosCE.xhtml" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>
