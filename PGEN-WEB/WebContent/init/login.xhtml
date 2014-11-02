@@ -17,6 +17,7 @@
 	<ui:define name="body">
 		<h:form>
 			<div class="form-signin">
+
 				<div class="col-xs-4 bs-docs-nav-side">
 
 					<div class="login-icon">
@@ -29,19 +30,37 @@
 					<div class="login-form">
 						<div class="form-group">
 							<span class="text-muted">#{content['label.enter.user']}</span>
-							<h:inputText id="login-name"
-								styleClass="form-control login-field" />
+							<h:inputText id="login-name" value="#{SessionPB.entity.usuario}"
+								styleClass="form-control login-field" required="true"
+								requiredMessage="#{msg['message.login.user.required']}" />
 
 						</div>
+
 						<div class="form-group">
 							<span class="text-muted">#{content['label.password']}</span>
-							<h:inputText id="login-pass"
-								styleClass="form-control login-field" pt:type="password" />
+							<h:inputSecret id="login-pass"
+								value="#{SessionPB.entity.contrasena}"
+								styleClass="form-control login-field" pt:type="password"
+								required="true"
+								requiredMessage="#{msg['message.login.password.required']}" />
 						</div>
+						<div></div>
 						<h:commandButton action="#{SessionPB.login}"
 							value="#{content['label.login']}"
-							styleClass="btn
+							styleClass="btn 
 						btn-primary btn-block" />
+					</div>
+				</div>
+				<div align="center" style="margin-top: 255px;">
+					<div style="padding: 2px;">
+						<p:message for="login-name" showSummary="false" closable="true" />
+					</div>
+					<div style="padding: 2px;">
+						<p:message for="login-pass" showSummary="false" closable="true" />
+					</div>
+					<div style="padding: 2px;">
+						<p:messages id="messages" showDetail="true" autoUpdate="true"
+							showSummary="false" closable="true" globalOnly="true" />
 					</div>
 				</div>
 			</div>

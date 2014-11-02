@@ -13,14 +13,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.app.entity.embedded.registroEMB;
+import com.app.entity.employees.EmpleadoE;
 import com.app.entity.enums.EstadosUsuario;
 import com.app.utils.ConstantsEntity;
 
@@ -42,6 +48,8 @@ public class UsuarioE implements Serializable {
 	private EstadosUsuario estado;
 
 	private PerfilE perfilID;
+	private EmpleadoE empleadoID;
+
 	private registroEMB registro;
 
 	private long version;
@@ -95,6 +103,16 @@ public class UsuarioE implements Serializable {
 		this.perfilID = perfilID;
 	}
 
+	@OneToOne()
+	@JoinColumn(name = "ID_PERSONA", nullable = true)
+	public EmpleadoE getEmpleadoID() {
+		return empleadoID;
+	}
+
+	public void setEmpleadoID(EmpleadoE empleadoID) {
+		this.empleadoID = empleadoID;
+	}
+
 	@Embedded
 	public registroEMB getRegistro() {
 		return registro;
@@ -123,5 +141,5 @@ public class UsuarioE implements Serializable {
 	private void upd() {
 		getRegistro().setRegModificación(new Date());
 	}
-	
+
 }

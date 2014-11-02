@@ -2,6 +2,7 @@ package com.app.jsf.base;
 
 import javax.persistence.EntityManager;
 
+import com.app.entity.security.UsuarioE;
 import com.app.utils.Constants;
 
 public class LoginBeanBase<E> extends JPAEntityBean<E> {
@@ -31,27 +32,30 @@ public class LoginBeanBase<E> extends JPAEntityBean<E> {
 	public void clear() {
 		logged = false;
 		params = null;
+		resultEntity = null;
 		super.clear();
 	}
 
 	@Override
 	protected void find() {
-		beforeFind();
 		EntityManager em = getEM();
 		try {
 			resultEntity = findEntity(getListQL(), getParams(), em);
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultEntity = null;
 		} finally {
 			em.close();
 		}
 	}
 
-	protected boolean validations() {
+	protected boolean validations() throws Exception {
 		return true;
 	}
 
-	public String login() {
+	public String login() throws Exception {
+		clear();
+		beforeFind();
 		int countResult = getEntityCount();
 
 		if (countResult == 0) {
@@ -65,9 +69,12 @@ public class LoginBeanBase<E> extends JPAEntityBean<E> {
 			getPaginatedList();
 		}
 		if (!validations()) {
+			entity = newInstace();
+			resultEntity= null;
+			clear();
+			
 			return null;
 		}
-
 		setLogged(true);
 		getSessionScope().put(Constants.LOGGED, isLogged());
 		getSessionScope().put(Constants.USER, resultEntity);
@@ -81,4 +88,10 @@ public class LoginBeanBase<E> extends JPAEntityBean<E> {
 		clear();
 		return notLoggedNR;
 	}
+
+	public E getResultEntity() {
+		return resultEntity;
+	}
+
+	
 }

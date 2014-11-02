@@ -23,5 +23,9 @@
    <base-name>com.app.resources.Content</base-name>
    <var>content</var>
   </resource-bundle>
+  <resource-bundle>
+   <base-name>com.app.resources.Messages_es</base-name>
+   <var>msg</var>
+  </resource-bundle>
  </application>
 </faces-config>

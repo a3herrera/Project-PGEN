@@ -5,14 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<div style="margin-top: 10px;">
+		<h:panelGroup>		
 		<ol class="breadcrumb">
-			<ui:repeat var="o" value="#{SessionPB.hijos}">
-				<li><h:commandLink action="#{SessionPB.navegacion}"
+			<ui:repeat var="o" value="#{SessionPB.accesosHijos}">
+				<li><h:commandLink   action="#{SessionPB.navegacionHijos()}"
 						value="#{o.titulo}">
-						<f:setPropertyActionListener value="#{o.url}"
-							target="#{SessionPB.action}" />
+						<f:setPropertyActionListener value="#{o.ID}"
+							target="#{SessionPB.idHijo}" />
 					</h:commandLink></li>
 			</ui:repeat>
 		</ol>
+		</h:panelGroup>
 	</div>
 </h:form>

@@ -44,6 +44,7 @@ public class UsuariosPageBean extends JPAEntityBean<UsuarioE> {
 	public String newEntity() throws Exception {
 		entity = newInstace();
 		idEntity = null;
+		setIdGrupo(0);
 		return null;
 	}
 	
@@ -136,7 +137,7 @@ public class UsuariosPageBean extends JPAEntityBean<UsuarioE> {
 	 * @param grupo
 	 */
 	private void validateEntityGroup(GrupoE grupo) {
-		if (isNew() && getEntity() != null) {
+		if (isNew() && getEntity() != null && idGrupo == 0) {
 			setIdGrupo(grupo.getID());
 		}
 	}
@@ -203,7 +204,7 @@ public class UsuariosPageBean extends JPAEntityBean<UsuarioE> {
 				.getPerfilID().getID() : -1;
 	}
 	
-	public void setIDPerfil(long idPerfil){
+	public void setIDPerfil(long idPerfil){	
 		List<PerfilE> perfiles = getPerfiles();
 		for(PerfilE perfil: perfiles){
 			if(perfil.getID()== idPerfil){
@@ -240,13 +241,12 @@ public class UsuariosPageBean extends JPAEntityBean<UsuarioE> {
 				String encryption = Utils.getEncriptyonMessage(getEntity().getContrasena(), EncryptionType.MD5);
 				getEntity().setContrasena(encryption);
 			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
+			
 			}
 		}
 		
 		return super.beforeSave(em);
 	}
-	
 	
 	
 }

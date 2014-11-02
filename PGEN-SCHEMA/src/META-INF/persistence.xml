@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="PGEN-SCHEMA" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/baseDatos</non-jta-data-source>
+		
 		<class>com.app.entity.security.AccesoE</class>
 		<class>com.app.entity.security.AccesosGrupoE</class>
 		<class>com.app.entity.security.AccesosPerfilE</class>
 		<class>com.app.entity.security.GrupoE</class>
 		<class>com.app.entity.security.PerfilE</class>
 		<class>com.app.entity.security.UsuarioE</class>
+		<class>com.app.entity.catalog.CatgTipoMoneda</class>
+		<class>com.app.entity.catalog.CatgTiposDocumentoE</class>
+		<class>com.app.entity.employees.EmpleadoE</class>
+		<class>com.app.entity.employees.PersonaE</class>
+		<class>com.app.entity.banks.BancoE</class>
+		<class>com.app.entity.banks.ChequeraE</class>
+		<class>com.app.entity.banks.CuentaE</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
+		<properties>
+			<property name="javax.persistence.jdbc.user" value="pruebas"/>
+			<property name="javax.persistence.jdbc.password" value="pruebas1"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+		</properties>
 	</persistence-unit>
 </persistence>

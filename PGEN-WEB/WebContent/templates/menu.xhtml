@@ -7,11 +7,11 @@
 	<div style="margin-top: 15px;">
 		<ul class="nav nav-sidebar">
 			<li><h:commandLink action="main" value="Dashboard" /></li>
-			<ui:repeat var="o" value="#{SessionPB.padres}">
+			<ui:repeat var="o" value="#{SessionPB.accesosPadre}">
 				<li><h:commandLink action="#{SessionPB.navegacion}"
 						value="#{o.titulo}">
-						<f:setPropertyActionListener value="#{o.url}"
-							target="#{SessionPB.action}" />
+						<f:setPropertyActionListener value="#{o.ID}"
+							target="#{SessionPB.idPadre}" />
 					</h:commandLink></li>
 			</ui:repeat>
 		</ul>

@@ -54,4 +54,27 @@ public class ConstantsEntity {
 	public static final int usuarioSecuenciaInit = 20;
 	public static final int usuarioSecuenciaAllocation = 1;
 
+	/*
+	 * Constantes de la Entidad catalago documentos
+	 */
+	public static final int catgDocumentoSecuenciaInit = 20;
+	public static final int catgDocumentoSecuenciaAllocation = 1;
+	
+	public static final int documentoNombreSize = 25;
+
+	/*
+	 * Constantes de la Entidad catalogo monedas
+	 */
+	public static final int catgMonedaSecuenciaInit = 20;
+	public static final int catgMonedaSecuenciaAllocation = 1;
+
+	/*
+	 * Constantes de la Entidad persona
+	 */
+	public static final int personaSecuenciaInit = 20;
+	public static final int personaSecuenciaAllocation = 1;
+	
+	public static final int personaNombreSize = 25;
+	
+	
 }

@@ -271,9 +271,11 @@ public class JPAEntityBase<E> extends JPABase<E> {
 		if (countEntity == null) {
 			EntityManager em = getEM();
 			try {
-				countEntity = countE(getCountQL(), em);
+				beforeFind();
+				countEntity = countE(getCountQL(),getParams(), em);
 			} catch (Exception e) {
 				// logger the Exception
+				e.printStackTrace();
 			} finally {
 				em.close();
 			}
