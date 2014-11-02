@@ -61,7 +61,7 @@ public class CuentaE implements Serializable {
 	@Column(name = "FECHA_APERTURA")
 	private Date fechaApertura;
 
-	@Column(name = "SALDO", length = 20, precision = 18, scale = 2, insertable = false)
+	@Column(name = "SALDO", precision = 18, scale = 2, insertable = false)
 	private double saldo;
 
 	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "cuentaID", cascade = CascadeType.ALL)
