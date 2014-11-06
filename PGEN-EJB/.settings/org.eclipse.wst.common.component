@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="PGEN-EJB">
+    <wb-module deploy-name="PGEN-CORE">
         <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
-        <property name="java-output-path" value="/PGEN-EJB/build/classes"/>
+        <property name="java-output-path" value="/PGEN-CORE/build/classes"/>
         <property name="ClientProject" value="PGEN-Client"/>
         <property name="ClientJARURI" value="PGEN-Client.jar"/>
     </wb-module>

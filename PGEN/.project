@@ -5,8 +5,8 @@
 	<projects>
 		<project>PGEN-WEB</project>
 		<project>PGEN-SCHEMA</project>
-		<project>PGEN-EJB</project>
 		<project>PGEN-Client</project>
+		<project>PGEN-CORE</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
