@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f2">
+		<div style="min-width: 350px;">
+			<table style="with: 100%">
+				<tr>
+					<td><p:outputLabel value="#{content['label.name']}" />
+					</td>
+					<td><h:inputText value="#{bancosPB.entity.nombre}"
+							styleClass="form-control" id="i1"  /></td>
+				</tr>
+
+				<tr>
+					<td><p:outputLabel
+							value="#{content['field.label.webPage']}" /></td>
+					<td><h:inputText value="#{bancosPB.entity.paginaWeb}"
+							styleClass="form-control" id="i2"  /></td>
+				</tr>
+				<tr>
+					<td><p:outputLabel value="#{content['label.state']}" /></td>
+					<td><h:selectBooleanCheckbox
+							value="#{bancosPB.entity.estado}" /></td>
+				</tr>
+
+			</table>
+
+			<div class="pager">
+				<p:commandButton update=":f1" action="#{bancosPB.saveEntity()}"
+					value="#{content['field.save']}" styleClass="btn btn-default">
+				</p:commandButton>
+				<p:commandButton value="#{content['field.cancel']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg1').hide();">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

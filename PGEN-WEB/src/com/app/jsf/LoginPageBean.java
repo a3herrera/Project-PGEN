@@ -77,6 +77,7 @@ public class LoginPageBean extends LoginBeanBase<UsuarioE> {
 	public void setIdPadre(long idPadre) {
 		this.idPadre = idPadre; 
 		accesosHijos= null;
+		action = null;
 	}
 	
 	
@@ -86,6 +87,7 @@ public class LoginPageBean extends LoginBeanBase<UsuarioE> {
 	}
 
 	public void setIdHijo(long idHijo) {
+		action = null;
 		this.idHijo = idHijo;
 	}
 
@@ -223,9 +225,10 @@ public class LoginPageBean extends LoginBeanBase<UsuarioE> {
 		return urls;
 	}
 
+	private String action = null;
+	
 	private String getAction() {
-		String action = null;
-		if (!Utils.isEmptyList(accesosPadres)) {
+		if (!Utils.isEmptyList(accesosPadres) && action == null) {
 			for (AccesoE acc : accesosPadres) {
 				if (acc.getID() == getIdPadre()) {
 					action = acc.getUrl();
@@ -247,8 +250,7 @@ public class LoginPageBean extends LoginBeanBase<UsuarioE> {
 	}
 	
 	private String getActionHijo(){
-		String action = null;
-		if (!Utils.isEmptyList(accesosHijos)) {
+	if (!Utils.isEmptyList(accesosHijos) && action == null) {
 			for (AccesoE acc : accesosHijos) {
 				if (acc.getID() == getIdHijo()) {
 					action = acc.getUrl();

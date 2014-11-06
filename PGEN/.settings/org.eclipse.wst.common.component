@@ -8,5 +8,12 @@
         <dependent-module archiveName="PGEN-SCHEMA.jar" deploy-path="/lib" handle="module:/resource/PGEN-SCHEMA/PGEN-SCHEMA">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="PGEN-EJB.jar" deploy-path="/" handle="module:/resource/PGEN-EJB/PGEN-EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="PGEN-Client.jar" deploy-path="/" handle="module:/resource/PGEN-Client/PGEN-Client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

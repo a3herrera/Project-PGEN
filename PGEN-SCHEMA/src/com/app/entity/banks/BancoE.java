@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.app.entity.embedded.registroEMB;
+import com.app.utils.ConstantsEntity;
 
 /**
  * Entity implementation class for Entity: Bancos
@@ -15,13 +16,13 @@ import com.app.entity.embedded.registroEMB;
  */
 @Entity
 @Table(name = "BANCOS")
-@SequenceGenerator(name = "seq_banco_id", sequenceName = "seq_banco_id")
+@SequenceGenerator(name = "SEQ_BANCO_ID", sequenceName = "SEQ_BANCO_ID", allocationSize = ConstantsEntity.bancoSecuenciaAllocation, initialValue = ConstantsEntity.bancoSecuenciaInit)
 public class BancoE implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "ID_BANCO")
-	@GeneratedValue(generator = "seq_banco_id")
+	@GeneratedValue(generator = "SEQ_BANCO_ID")
 	private long ID;
 
 	@Column(name = "NOMBRE", length = 50, nullable = false)
@@ -32,13 +33,13 @@ public class BancoE implements Serializable {
 
 	@Column(name = "ESTADO")
 	private boolean estado;
-	
+
 	@Embedded
 	private registroEMB registro;
 
 	@OneToMany(mappedBy = "bancoID", fetch = FetchType.LAZY, orphanRemoval = false, cascade = CascadeType.ALL)
 	private List<CuentaE> cuentas;
-	
+
 	@Version
 	private long version;
 
@@ -92,6 +93,14 @@ public class BancoE implements Serializable {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}	
+
+	public List<CuentaE> getCuentas() {
+		return cuentas;
+	}
+
+	public void setCuentas(List<CuentaE> cuentas) {
+		this.cuentas = cuentas;
 	}
 
 	@PrePersist
@@ -104,13 +113,4 @@ public class BancoE implements Serializable {
 	private void upd() {
 		getRegistro().setRegModificación(new Date());
 	}
-
-	public List<CuentaE> getCuentas() {
-		return cuentas;
-	}
-
-	public void setCuentas(List<CuentaE> cuentas) {
-		this.cuentas = cuentas;
-	}
-
 }

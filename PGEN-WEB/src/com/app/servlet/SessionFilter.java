@@ -25,7 +25,7 @@ public class SessionFilter implements Filter {
 				HttpServletRequest req = (HttpServletRequest) request;
 
 				String uri = req.getRequestURI();
-
+				
 				final String contexPath = req.getContextPath();
 
 				if (allwaysAllow(uri)) {

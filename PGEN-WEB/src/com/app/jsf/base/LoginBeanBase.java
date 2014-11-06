@@ -2,7 +2,6 @@ package com.app.jsf.base;
 
 import javax.persistence.EntityManager;
 
-import com.app.entity.security.UsuarioE;
 import com.app.utils.Constants;
 
 public class LoginBeanBase<E> extends JPAEntityBean<E> {

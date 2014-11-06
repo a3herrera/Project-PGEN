@@ -77,4 +77,25 @@ public class ConstantsEntity {
 	public static final int personaNombreSize = 25;
 	
 	
+	/*
+	 * Constantes de la entidad de Bancos
+	 * */
+	
+	public static final int bancoSecuenciaInit = 20;
+	public static final int bancoSecuenciaAllocation = 1;
+	
+	/*
+	 * Constantes de la entidad de cuentas
+	 * */
+	
+	public static final int cuentaSecuenciaInit = 20;
+	public static final int cuentaSecuenciaAllocation = 1;
+	
+	/*
+	 * Constantes de la entidad de CHEQUERAS
+	 * */
+	
+	public static final int chequeraSecuenciaInit = 20;
+	public static final int chequeraSecuenciaAllocation = 1;
+	
 }

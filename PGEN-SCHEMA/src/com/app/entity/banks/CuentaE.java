@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,6 +28,7 @@ import javax.persistence.Version;
 import com.app.entity.catalog.CatgTipoMoneda;
 import com.app.entity.embedded.registroEMB;
 import com.app.entity.enums.TiposCuenta;
+import com.app.utils.ConstantsEntity;
 
 /**
  * Entity implementation class for Entity: CuentaE
@@ -33,7 +36,7 @@ import com.app.entity.enums.TiposCuenta;
  */
 @Entity
 @Table(name = "CUENTAS")
-@SequenceGenerator(name = "SEQ_CUENTA_ID", sequenceName = "SEQ_CUENTA_ID")
+@SequenceGenerator(name = "SEQ_CUENTA_ID", sequenceName = "SEQ_CUENTA_ID", allocationSize = ConstantsEntity.cuentaSecuenciaAllocation, initialValue = ConstantsEntity.cuentaSecuenciaInit)
 public class CuentaE implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -57,12 +60,15 @@ public class CuentaE implements Serializable {
 	@JoinColumn(name = "MONEDA", nullable = false)
 	private CatgTipoMoneda moneda;
 
-	@Temporal(TemporalType.TIME)
-	@Column(name = "FECHA_APERTURA")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "FECHA_APERTURA", updatable=false)
 	private Date fechaApertura;
 
 	@Column(name = "SALDO", precision = 18, scale = 2, insertable = false)
 	private double saldo;
+
+	@Column(name = "ESTADO", nullable = false)
+	private boolean estado;
 
 	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "cuentaID", cascade = CascadeType.ALL)
 	private List<ChequeraE> chequeras;
@@ -147,6 +153,33 @@ public class CuentaE implements Serializable {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	@PrePersist
+	private void per() {
+		setRegistro(new registroEMB());
+		getRegistro().setRegCreacion(new Date());
+	}
+
+	@PreUpdate
+	private void upd() {
+		getRegistro().setRegModificación(new Date());
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public List<ChequeraE> getChequeras() {
+		return chequeras;
+	}
+
+	public void setChequeras(List<ChequeraE> chequeras) {
+		this.chequeras = chequeras;
 	}
 
 }

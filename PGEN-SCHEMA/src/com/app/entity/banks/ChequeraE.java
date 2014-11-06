@@ -3,6 +3,7 @@ package com.app.entity.banks;
 import com.app.entity.banks.CuentaE;
 import com.app.entity.embedded.registroEMB;
 import com.app.entity.enums.EstadoChequera;
+import com.app.utils.ConstantsEntity;
 
 import java.io.Serializable;
 import java.lang.String;
@@ -16,7 +17,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "CHEQUERAS")
-@SequenceGenerator(name = "SEQ_CHEQUERA_ID", sequenceName = "SEQ_CHEQUERA_ID")
+@SequenceGenerator(name = "SEQ_CHEQUERA_ID", sequenceName = "SEQ_CHEQUERA_ID",allocationSize = ConstantsEntity.chequeraSecuenciaAllocation, initialValue = ConstantsEntity.chequeraSecuenciaInit)
 public class ChequeraE implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -149,5 +150,16 @@ public class ChequeraE implements Serializable {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+	
+	@PrePersist
+	private void per() {
+		setRegistro(new registroEMB());
+		getRegistro().setRegCreacion(new Date());
+	}
+
+	@PreUpdate
+	private void upd() {
+		getRegistro().setRegModificación(new Date());
 	}
 }
