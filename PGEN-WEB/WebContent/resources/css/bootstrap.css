@@ -5082,9 +5082,9 @@ a.list-group-item:hover, a.list-group-item:focus {
 }
 
 .panel-success>.panel-heading {
-	color: #468847;
-	background-color: #dff0d8;
-	border-color: #d6e9c6;
+	color: #ffffff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
 }
 
 .panel-success>.panel-heading+.panel-collapse .panel-body {

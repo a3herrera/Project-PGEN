@@ -5,7 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import com.app.utils.Constants;
+import com.app.utils.ConstantsEntity;
 
 @ApplicationScoped
 @ManagedBean(name = "APP")
@@ -16,7 +16,7 @@ public class APP {
 	public EntityManagerFactory getEmf() {
 		if (emf == null) {
 			emf = Persistence
-					.createEntityManagerFactory(Constants.persistencesName);
+					.createEntityManagerFactory(ConstantsEntity.persistencesName);
 		}
 		return emf;
 	}

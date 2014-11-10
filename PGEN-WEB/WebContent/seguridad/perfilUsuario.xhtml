@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="pageTitle">
+		<title>#{content['label.profile']}</title>
+	</ui:define>
+	<ui:define name="additionsPage">
+		<h:outputStylesheet library="css" name="dashboard.css" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h2 class="page-header">#{content['label.profile']}</h2>
+		<h:form>
+			
+			
+			<div class="col-xs-6">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.info.user']}
+						<div class="pull-right">
+							<div class="btn-group">
+								<h:commandLink value="#{content['field.edit']}"
+									styleClass="btn btn-default btn-xs" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.info.person']}
+						<div class="pull-right">
+							<div class="btn-group">
+								<h:commandLink value="#{content['field.edit']}"
+									styleClass="btn btn-default btn-xs" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

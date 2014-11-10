@@ -2,7 +2,7 @@
     <wb-module deploy-name="PGEN-CORE">
         <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
         <property name="java-output-path" value="/PGEN-CORE/build/classes"/>
-        <property name="ClientProject" value="PGEN-Client"/>
-        <property name="ClientJARURI" value="PGEN-Client.jar"/>
+        <property name="ClientProject" value="PGEN-CLIENT"/>
+        <property name="ClientJARURI" value="PGEN-CLIENT.jar"/>
     </wb-module>
 </project-modules>

@@ -24,7 +24,7 @@
 				<tr>
 					<td><p:outputLabel
 							value="#{content['field.label.account.type']}" /></td>
-					<td><h:selectOneMenu value="#{cuentaPB.entity.tipo}" disabled="#{cuentaPB.new}"
+					<td><h:selectOneMenu value="#{cuentaPB.entity.tipo}" 
 							styleClass="form-control">
 							<f:selectItems value="#{cuentaPB.tipoUI}" />
 						</h:selectOneMenu></td>
@@ -32,7 +32,7 @@
 				<tr>
 					<td><p:outputLabel
 							value="#{content['field.label.account.moneda']}" /></td>
-					<td><h:selectOneMenu value="#{cuentaPB.idMoneda}" disabled="#{cuentaPB.new}"
+					<td><h:selectOneMenu value="#{cuentaPB.idMoneda}"
 							styleClass="form-control">
 							<f:selectItems value="#{cuentaPB.monedaUI}" />
 						</h:selectOneMenu></td>

@@ -29,7 +29,8 @@
 									data-toggle="dropdown">#{SessionPB.resultEntity.usuario} <span
 										class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
-										<li><h:commandLink value="#{content['label.profile']}" /></li>
+										<li><h:commandLink value="#{content['label.profile']}"
+												action="/seguridad/perfilUsuario.xhtml?faces-redirect=true" /></li>
 
 										<li class="divider"></li>
 										<li><h:commandLink value="#{content['label.logout']}"

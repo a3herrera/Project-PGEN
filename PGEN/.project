@@ -3,9 +3,9 @@
 	<name>PGEN</name>
 	<comment></comment>
 	<projects>
-		<project>PGEN-WEB</project>
 		<project>PGEN-SCHEMA</project>
-		<project>PGEN-Client</project>
+		<project>PGEN-WEB</project>
+		<project>PGEN-CLIENT</project>
 		<project>PGEN-CORE</project>
 	</projects>
 	<buildSpec>

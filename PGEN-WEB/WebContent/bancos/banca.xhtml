@@ -3,21 +3,87 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/bancos/bcs.xhtml">
+	<ui:define name="subBody">
+		<h:form id="f1">
 
-	<ui:define name="pageTitle">
-		<title>#{content['field.title.banking']}</title>
-	</ui:define>
-	<ui:define name="additionsPage">
-		<h:outputStylesheet library="css" name="dashboard.css" />
-	</ui:define>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				showSummary="false" closable="true" globalOnly="true" />
 
-	<ui:define name="body">
-		<h2>#{content['field.title.banking']}</h2>
-		<ui:include src="/templates/subMenu.xhtml" />
-		
-		<div style="margin-top: -15px">
-			<ui:insert name="subBody" />
-		</div>
+			<h:commandButton action="#{bancaPB.refreshList}"
+				alt="#{content['field.refresh']}"
+				title="#{content['field.refresh']}" styleClass="btn btn-default"
+				image="/resources/img/refresh16.png">
+				<f:ajax render="f1" />
+			</h:commandButton>
+
+			<ui:repeat var="banca" value="#{bancaPB.paginatedList}">
+
+				<div class="panel panel-primary" style="margin-top: 10px;">
+					<div class="panel-heading">
+						<i class="fa fa-bar-chart-o fa-fw"></i>#{banca.nombre}
+						<div class="pull-right">
+							<div class="btn-group">
+								<p:commandLink value="#{content['field.label.set.debit']}"
+									styleClass="btn btn-default btn-xs" ajax="true"
+									update=":dialog" action="#{bancaPB.edicion()}"
+									oncomplete="PF('dlg1').show();">
+									<f:setPropertyActionListener value="#{banca}"
+										target="#{bancaPB.banco}" />
+								</p:commandLink>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><p:outputLabel
+											value="#{content['field.label.account.no']}" /></th>
+									<th><p:outputLabel
+											value="#{content['field.label.account.type']}" /></th>
+									<th><p:outputLabel
+											value="#{content['field.label.account.moneda']}" /></th>
+									<th><p:outputLabel
+											value="#{content['field.label.account.date']}" /></th>
+									<th><p:outputLabel
+											value="#{content['fiel.label.account.balance']}" /></th>
+									<th />
+								</tr>
+							</thead>
+							<tbody>
+								<ui:repeat value="#{banca.cuentas}" var="cuenta">
+									<tr>
+										<td><small> #{cuenta.numero} </small></td>
+										<td><small> #{cuenta.tipo} </small></td>
+										<td><small> #{cuenta.moneda.moneda} </small></td>
+										<td><small> #{cuenta.fechaApertura} </small></td>
+										<td><small>#{cuenta.saldo}</small></td>
+										<td><h:commandButton title="#{content['field.label.debit']}"
+												alt="#{content['field.label.debit']}"
+												styleClass="btn btn-link btn-xs"
+												image="/resources/img/download2.png">
+											</h:commandButton>
+											<h:commandButton title="#{content['field.label.credit']}"
+												alt="#{content['field.label.credit']}"
+												styleClass="btn btn-link btn-xs"
+												image="/resources/img/upload2.png">
+											</h:commandButton>
+										</td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</ui:repeat>
+		</h:form>
+		<p:dialog header="#{content['field.label.new.debit']}"
+			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
+			id="dialog" closable="false" appendTo="@(body)">
+			<ui:include src="/bancos/depositos.xhtml" />
+		</p:dialog>
+
 	</ui:define>
 </ui:composition>

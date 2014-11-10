@@ -2,6 +2,8 @@ package com.app.utils;
 
 public class ConstantsEntity {
 
+	public static final String persistencesName = "PGEN-SCHEMA";
+	
 	/*
 	 * Expresion regulares
 	 */
