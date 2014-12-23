@@ -13,6 +13,7 @@ public class JPAEntityBean<E> extends JPAEntityBase<E> {
 	 */
 	private static final long serialVersionUID = 1L;
 
+
 	public JPAEntityBean() {
 		// TODO Auto-generated constructor stub
 	}
@@ -29,16 +30,15 @@ public class JPAEntityBean<E> extends JPAEntityBase<E> {
 		return getEMF().createEntityManager();
 	}
 
-	
 	public void edicion() {
 	}
-	
+
 	// Propiedad para obtener las etiquetas de un archivo .properties es
 	// necesario el set de la variable
 	@ManagedProperty(value = "#{msg}")
 	private ResourceBundle msg;
-	
-	@ManagedProperty(value="#{content}")
+
+	@ManagedProperty(value = "#{content}")
 	private ResourceBundle content;
 
 	public void setMsg(ResourceBundle msg) {
@@ -56,7 +56,6 @@ public class JPAEntityBean<E> extends JPAEntityBase<E> {
 	public void setContent(ResourceBundle content) {
 		this.content = content;
 	}
-	
-	
-	
+
+
 }

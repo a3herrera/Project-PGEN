@@ -115,7 +115,7 @@ public class BancaPageBean extends JPAEntityBean<BancoE> {
 	public void enviarDebito(){
 		System.out.println("INGRESANDO A ENVIAR DEBITO");
 		/*long idTransaccion = request.debit(get, amount, noDocument)*/
-		long idTransaccion = request.debit(getCuentaId(), getMonto(), getDocumentoNo());
+		long idTransaccion = request.credit(getCuentaId(), getMonto(), getDocumentoNo());
 		String message = MessageFormat.format(getMsg().getString("message.transaction.debit"), idTransaccion);
 		infMsg(message);
 		clear();

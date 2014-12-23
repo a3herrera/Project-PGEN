@@ -61,6 +61,21 @@ public class JPABase<E> extends Base {
 	 * PENDIENTE DE PROCESAR ESTE METODO public E createListEntity() throws
 	 * Exception { return null; }
 	 */
+	/**
+	 * <p>
+	 * Persiste multiples objetos
+	 * </p>
+	 * 
+	 * @param list
+	 * @param em
+	 * @return
+	 */
+	public List<E> createListEntity(List<E> list, EntityManager em){
+		for(E object: list){
+			em.persist(object);
+		}
+		return list;
+	}
 
 	public E updateEntity(E entity, EntityManager em) throws Exception {
 		em.merge(entity);
@@ -70,6 +85,8 @@ public class JPABase<E> extends Base {
 	public void deleteEntity(Object id, EntityManager em) throws Exception {
 		em.remove(findEntity(id, em));
 	}
+	
+	
 
 	public E findEntity(Object id, EntityManager em) {
 		return em.find(getClassName(), id);

@@ -57,7 +57,11 @@
 										<td><small> #{cuenta.numero} </small></td>
 										<td><small> #{cuenta.tipo} </small></td>
 										<td><small> #{cuenta.moneda.moneda} </small></td>
-										<td><small> #{cuenta.fechaApertura} </small></td>
+										<td><small> 
+											<h:outputText value="#{cuenta.fechaApertura}" >
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</h:outputText>
+										 </small></td>
 										<td><small>#{cuenta.saldo}</small></td>
 										<td><h:commandButton title="#{content['field.label.debit']}"
 												alt="#{content['field.label.debit']}"

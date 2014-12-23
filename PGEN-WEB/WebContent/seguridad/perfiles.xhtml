@@ -54,6 +54,16 @@
 									</tr>
 								</ui:repeat>
 							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4"><ui:include
+											src="/templates/paginatedScroller.xhtml">
+											<ui:param name="entityPageBean" value="#{perfilPB}" />
+											<ui:param name="render" value="f1" />
+											<ui:param name="showAdd" value="false" />
+										</ui:include></td>
+								</tr>
+							</tfoot>
 						</table>
 					</div>
 				</div>
