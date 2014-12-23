@@ -122,7 +122,8 @@ public class MessageWorker implements MessageListener {
 		}
     }
     
-    private void removeRequests(long idRequests){
+    @SuppressWarnings("unused")
+	private void removeRequests(long idRequests){
     	em = emf.createEntityManager();
     	try{
     		em.getTransaction().begin();
