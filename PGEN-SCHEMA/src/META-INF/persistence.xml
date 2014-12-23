@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="PGEN-SCHEMA" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/baseDatos</non-jta-data-source>
+	 	<non-jta-data-source>jdbc/pgen1</non-jta-data-source> 
 		
 		<class>com.app.entity.security.AccesoE</class>
 		<class>com.app.entity.security.AccesosGrupoE</class>
@@ -19,9 +19,18 @@
 		<class>com.app.entity.transactions.DebitosE</class>
 		<class>com.app.entity.transactions.CreditosE</class>
 		<class>com.app.entity.transactions.TransaccionE</class>
+		<class>com.app.entity.banks.ChequeE</class>
+		<class>com.app.entity.providers.ComprasPrvE</class>
+		<class>com.app.entity.providers.ContactoPrvE</class>
+		<class>com.app.entity.providers.ProveedorE</class>
+		<class>com.app.entity.history.AuditedEntity</class>
 		<shared-cache-mode>NONE</shared-cache-mode>
-		<properties>
+	<!-- 	<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
-		</properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+			<property name="javax.persistence.jdbc.user" value="designdb"/>
+			<property name="javax.persistence.jdbc.password" value="designdb"/>
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+		</properties> -->
 	</persistence-unit>
 </persistence>

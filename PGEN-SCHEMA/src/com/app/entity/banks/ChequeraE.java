@@ -1,15 +1,33 @@
 package com.app.entity.banks;
 
-import com.app.entity.banks.CuentaE;
-import com.app.entity.embedded.registroEMB;
-import com.app.entity.enums.EstadoChequera;
-import com.app.utils.ConstantsEntity;
-
-import java.io.Serializable;
-import java.lang.String;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.eclipse.persistence.annotations.Customizer;
+
+import com.app.entity.enums.EstadoChequera;
+import com.app.entity.history.AuditedEntity;
+import com.app.entity.history.ChequeraHistory;
+import com.app.utils.ConstantsEntity;
 
 /**
  * Entity implementation class for Entity: ChequeraE
@@ -17,8 +35,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "CHEQUERAS")
-@SequenceGenerator(name = "SEQ_CHEQUERA_ID", sequenceName = "SEQ_CHEQUERA_ID",allocationSize = ConstantsEntity.chequeraSecuenciaAllocation, initialValue = ConstantsEntity.chequeraSecuenciaInit)
-public class ChequeraE implements Serializable {
+@Customizer(ChequeraHistory.class)
+@SequenceGenerator(name = "SEQ_CHEQUERA_ID", sequenceName = "SEQ_CHEQUERA_ID", allocationSize = ConstantsEntity.chequeraSecuenciaAllocation, initialValue = ConstantsEntity.chequeraSecuenciaInit)
+public class ChequeraE extends AuditedEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,18 +46,20 @@ public class ChequeraE implements Serializable {
 	private long ID;
 
 	@ManyToOne
-	@JoinColumn(name = "ID_CUENTA", nullable = false, updatable = false, insertable = true)
+	@JoinColumn(name = "ID_CUENTA", nullable = false,  insertable = true)
 	private CuentaE cuentaID;
 
-	@Column(name = "CODIGO", nullable = false, updatable = false, insertable = true,length=50)
-	private String codigo;
+	@NotNull(message = "{campo.not.null}")
+	@Column(name = "NUMERO", nullable = false, length = 20)
+	private String numero;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ESTADO", nullable = false, length = 20)
-	private EstadoChequera estado;
+	private EstadoChequera estado = EstadoChequera.NUEVA;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "FECHA_AUTORIZACION", nullable = false, updatable = false)
+	@NotNull(message = "{campo.not.null}")
+	@Column(name = "FECHA_AUTORIZACION", nullable = false)
 	private Date fechaAutorización;
 
 	@Temporal(TemporalType.DATE)
@@ -46,23 +67,18 @@ public class ChequeraE implements Serializable {
 	private Date fechaBaja;
 
 	@Column(name = "TOTAL_CHEQUES", nullable = false)
-	private int totalCheques;
+	private long totalCheques;
 
-	@Column(name = "NUMERACION_INICIAL", nullable = false, updatable = false, insertable = true)
+	@NotNull(message = "{campo.not.null}")
+	@Column(name = "NUMERACION_INICIAL", nullable = false,  insertable = true)
 	private long numeroInicial;
 
-	@Column(name = "NUMERACION_FINAL", nullable = false, updatable = false, insertable = true)
+	@NotNull(message = "{campo.not.null}")
+	@Column(name = "NUMERACION_FINAL", nullable = false, insertable = true)
 	private long numeroFinal;
 
-	@Embedded
-	private registroEMB registro;
-
-	@Version
-	private long version;
-
-	public ChequeraE() {
-		super();
-	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "chequeraID", fetch = FetchType.LAZY, orphanRemoval = false)
+	private List<ChequeE> cheques;
 
 	public long getID() {
 		return ID;
@@ -78,14 +94,6 @@ public class ChequeraE implements Serializable {
 
 	public void setCuentaID(CuentaE cuentaID) {
 		this.cuentaID = cuentaID;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public EstadoChequera getEstado() {
@@ -112,11 +120,11 @@ public class ChequeraE implements Serializable {
 		this.fechaBaja = fechaBaja;
 	}
 
-	public int getTotalCheques() {
+	public long getTotalCheques() {
 		return totalCheques;
 	}
 
-	public void setTotalCheques(int totalCheques) {
+	public void setTotalCheques(long totalCheques) {
 		this.totalCheques = totalCheques;
 	}
 
@@ -136,30 +144,22 @@ public class ChequeraE implements Serializable {
 		this.numeroFinal = numeroFinal;
 	}
 
-	public registroEMB getRegistro() {
-		return registro;
+	public List<ChequeE> getCheques() {
+		return cheques;
 	}
 
-	public void setRegistro(registroEMB registro) {
-		this.registro = registro;
+	public void setCheques(List<ChequeE> cheques) {
+		this.cheques = cheques;
 	}
 
-	public long getVersion() {
-		return version;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setVersion(long version) {
-		this.version = version;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
+
 	
-	@PrePersist
-	private void per() {
-		setRegistro(new registroEMB());
-		getRegistro().setRegCreacion(new Date());
-	}
-
-	@PreUpdate
-	private void upd() {
-		getRegistro().setRegModificación(new Date());
-	}
+	
 }
