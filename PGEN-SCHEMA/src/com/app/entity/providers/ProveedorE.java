@@ -1,11 +1,9 @@
 package com.app.entity.providers;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,16 +15,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.persistence.Version;
 
-import com.app.entity.embedded.registroEMB;
+import org.eclipse.persistence.annotations.Customizer;
+
 import com.app.entity.enums.EstadoProveedor;
+import com.app.entity.history.AuditedEntity;
+import com.app.entity.history.ProveedoresHistory;
 import com.app.utils.ConstantsEntity;
 
 @Entity
+@Customizer(ProveedoresHistory.class)
 @Table(name = "PROVEEDORES", uniqueConstraints = { @UniqueConstraint(columnNames = "NOMBRE", name = "CNN_UN_PRV_NOMBRE") })
 @SequenceGenerator(name = ConstantsEntity.PROVEEDOR_SEQUENCE_NAME, sequenceName = ConstantsEntity.PROVEEDOR_SEQUENCE_NAME, allocationSize = ConstantsEntity.proveedorSecuenciaAllocation, initialValue = ConstantsEntity.proveedorSecuenciaInit)
-public class ProveedorE implements Serializable {
+public class ProveedorE extends AuditedEntity {
 
 	/**
 	 * 
@@ -51,11 +52,6 @@ public class ProveedorE implements Serializable {
 	@OneToMany(mappedBy = "proveedorID", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ContactoPrvE> contactos;
 
-	@Embedded
-	private registroEMB registro;
-
-	@Version
-	private long version;
 
 	public long getID() {
 		return ID;
@@ -97,20 +93,6 @@ public class ProveedorE implements Serializable {
 		this.contactos = contactos;
 	}
 
-	public registroEMB getRegistro() {
-		return registro;
-	}
 
-	public void setRegistro(registroEMB registro) {
-		this.registro = registro;
-	}
-
-	public long getVersion() {
-		return version;
-	}
-
-	public void setVersion(long version) {
-		this.version = version;
-	}
 
 }

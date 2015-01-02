@@ -57,11 +57,6 @@ public class ComprasPrvE extends AuditedEntity {
 	private EstadoCompra estado;
 
 	
-	
-	public ComprasPrvE() {
-		super();
-	}
-
 	public long getID() {
 		return this.ID;
 	}

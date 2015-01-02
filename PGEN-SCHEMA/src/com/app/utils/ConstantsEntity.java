@@ -134,6 +134,7 @@ public class ConstantsEntity {
 	public static final int proveedorSecuenciaInit = 20;
 	public static final int proveedorSecuenciaAllocation = 1;
 	public static final String PROVEEDOR_SEQUENCE_NAME= "SEQ_PROV_ID";
+	public static final String PROVEEDOR_HISTORY_NAME = "PROVEEDORES_HISTORY";
 
 	/*
 	 * Constantes de la entidad de Compras a un proveedor

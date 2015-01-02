@@ -19,7 +19,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.eclipse.persistence.annotations.Customizer;
@@ -46,7 +45,7 @@ public class ChequeraE extends AuditedEntity {
 	private long ID;
 
 	@ManyToOne
-	@JoinColumn(name = "ID_CUENTA", nullable = false,  insertable = true)
+	@JoinColumn(name = "ID_CUENTA", nullable = false, insertable = true)
 	private CuentaE cuentaID;
 
 	@NotNull(message = "{campo.not.null}")
@@ -70,12 +69,15 @@ public class ChequeraE extends AuditedEntity {
 	private long totalCheques;
 
 	@NotNull(message = "{campo.not.null}")
-	@Column(name = "NUMERACION_INICIAL", nullable = false,  insertable = true)
+	@Column(name = "NUMERACION_INICIAL", nullable = false, insertable = true)
 	private long numeroInicial;
 
 	@NotNull(message = "{campo.not.null}")
 	@Column(name = "NUMERACION_FINAL", nullable = false, insertable = true)
 	private long numeroFinal;
+
+	@Column(name = "CHEQUES_EMITIDOS")
+	private int chequesEmitidos;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "chequeraID", fetch = FetchType.LAZY, orphanRemoval = false)
 	private List<ChequeE> cheques;
@@ -160,6 +162,12 @@ public class ChequeraE extends AuditedEntity {
 		this.numero = numero;
 	}
 
-	
-	
+	public int getChequesEmitidos() {
+		return chequesEmitidos;
+	}
+
+	public void setChequesEmitidos(int chequesEmitidos) {
+		this.chequesEmitidos = chequesEmitidos;
+	}
+
 }
