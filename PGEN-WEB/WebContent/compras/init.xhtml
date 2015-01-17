@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" template="/compras/template.xhtml">
+	<ui:define name="subBody">
+		<h:form id="f1">
+			<div class="panel panel-info" style="margin-top: -5px;">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.filter.search']}
+					<div class="pull-right">
+						<div class="btn-group">
+							<p:commandLink title="#{content['label.search']}"
+								styleClass="btn btn-info btn-xs" ajax="true" update=":f1"
+								action="#{comprasPB.buscar()}">
+								<span class="glyphicon glyphicon-search"> </span>
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table class="table table-condensed">
+						<tr>
+							<td>#{content['label.number.purchase']}</td>
+							<td><h:inputText value="#{comprasPB.number}" styleClass="form-control" /></td>
+							<td>#{content['label.provider.name']}</td>
+							<td><h:inputText value="#{comprasPB.providerName}" styleClass="form-control" /></td>
+							<td>#{content['label.state']}</td>
+							<td><h:selectOneMenu value="#{comprasPB.estado}" styleClass="form-control">
+									<f:selectItems value="#{comprasPB.estadosSearchUI}" />
+								</h:selectOneMenu></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				showSummary="false" closable="true" globalOnly="true" />
+			<div class="panel panel-primary" style="margin-top: -5px;">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i>#{content['field.title.purchase']}
+					<div class="pull-right">
+						<div class="btn-group">
+							<p:commandLink title="#{content['field.new']} abc" 
+								styleClass="btn btn-default btn-xs" ajax="true" update=":dlg1"
+								action="#{comprasPB.newEntity()}" oncomplete="PF('dlg1').show();" >
+								<span class="glyphicon glyphicon-plus"> </span>	
+							</p:commandLink>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#{content['label.number.purchase']}</th>
+								<th>#{content['label.provider.name']}</th>
+								<th>#{content['label.field.buy.date']}</th>
+								<th>#{content['label.state']}</th>
+								<th>#{content['field.label.account.ammount']}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="compra" value="#{comprasPB.paginatedList}">
+								<tr>
+									<td>#{compra.ID}</td>
+									<td>#{compra.proveedorID.nombre}</td>
+									<td><h:outputText value="#{compra.fechaCompra}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText></td>
+									<td>#{compra.estado}</td>
+									<td>#{compra.monto}</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="5"><ui:include
+										src="/templates/paginatedScroller.xhtml">
+										<ui:param name="entityPageBean" value="#{comprasPB}" />
+										<ui:param name="render" value="f1" />
+										<ui:param name="showAdd" value="false" />
+									</ui:include></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</h:form>
+		<p:dialog
+			header="#{comprasPB.new? content['field.title.purchase.new']:content['field.title.purchase.edit']}"
+			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
+			id="dlg1" closable="false" appendTo="@(body)">
+			 <ui:include src="/compras/ingresoCompra.xhtml" /> 
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

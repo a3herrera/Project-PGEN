@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" template="/compras/template.xhtml">
+	<ui:define name="subBody">
+		<h:form id="f1">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				showSummary="false" closable="true" globalOnly="true" />
+			
+			
+		</h:form>
+		<p:dialog
+			header="#{comprasPB.new? content['field.title.purchase.new']:content['field.title.purchase.edit']}"
+			widgetVar="dlg1" modal="true" resizable="false" draggable="false"
+			id="dlg1" closable="false" appendTo="@(body)">
+		</p:dialog>
+	</ui:define>
+</ui:composition>

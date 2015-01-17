@@ -107,7 +107,7 @@ public class JPABase<E> extends Base {
 	public List<E> findListEntity(EntityManager em) throws Exception {
 		CriteriaQuery<E> cq = (CriteriaQuery<E>) em.getCriteriaBuilder()
 				.createQuery();
-		cq.select(cq.from(className));
+		cq.select(cq.from(getClassName()));
 		return em.createQuery(cq).getResultList();
 	}
 

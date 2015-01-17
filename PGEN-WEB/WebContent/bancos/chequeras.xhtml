@@ -7,7 +7,9 @@
 	<ui:define name="subBody">
 		<h3 class="page-header">#{content['field.title.checkbook']}</h3>
 		<h:form id="f1">
-			<div class="panel panel-default" style="margin-top: -5px;">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				showSummary="false" closable="true" globalOnly="true" />
+			<div class="panel panel-primary" style="margin-top: -5px;">
 				<div class="panel-heading">
 					<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.list']}
 					<div class="pull-right">
@@ -35,19 +37,15 @@
 											value="#{content['field.label.releaseDate']}" /></th>
 									<th><p:outputLabel
 											value="#{content['field.label.totalCheks']}" /></th>
+									<th><p:outputLabel value="#{content['label.options']}" />
 
+									</th>
 								</tr>
 							</thead>
 							<tbody>
 								<ui:repeat var="chequera" value="#{chequeraPB.paginatedList}">
 									<tr>
-										<td><p:commandLink value="#{chequera.numero}"
-												action="#{chequeraPB.edicion()}" update=":dlg1"
-												oncomplete="PF('dlg1').show();">
-												<f:setPropertyActionListener value="#{chequera.ID}"
-													target="#{chequeraPB.idEntity}" />
-
-											</p:commandLink></td>
+										<td><small> #{chequera.numero} </small></td>
 										<td><small> #{chequera.cuentaID.numero} </small></td>
 										<td><small> #{chequera.estado} </small></td>
 										<td><small> <h:outputText
@@ -56,12 +54,39 @@
 												</h:outputText>
 										</small></td>
 										<td><small>#{chequera.totalCheques}</small></td>
+										<td><p:commandLink
+												title="#{content['field.title.info.general']}"
+												styleClass="btn btn-xs" ajax="true" update=":dlg3"
+												action="#{chequeraPB.edicion()}"
+												oncomplete="PF('dlg3').show();"
+												rendered="#{chequeraPB.showGeneralInfo(chequera.estado)}">
+												<span class="glyphicon glyphicon-list-alt"> </span>
+												<f:setPropertyActionListener value="#{chequera.ID}"
+													target="#{chequeraPB.idEntity}" />
+											</p:commandLink> <p:commandLink title="#{content['field.edit']}"
+												styleClass="btn btn-xs" ajax="true"
+												action="#{chequeraPB.edicion()}" update=":dlg1"
+												oncomplete="PF('dlg1').show();"
+												rendered="#{!chequeraPB.showGeneralInfo(chequera.estado)}">
+												<span class="glyphicon glyphicon-edit"> </span>
+												<f:setPropertyActionListener value="#{chequera.ID}"
+													target="#{chequeraPB.idEntity}" />
+											</p:commandLink> <p:commandLink
+												title="#{content['field.label.change.state']}"
+												styleClass="btn btn-xs" ajax="true" update=":dlg4"
+												action="#{chequeraPB.edicion()}"
+												oncomplete="PF('dlg4').show();"
+												rendered="#{chequeraPB.showChangeState(chequera.estado)}">
+												<span class="glyphicon glyphicon-share"> </span>
+												<f:setPropertyActionListener value="#{chequera.ID}"
+													target="#{chequeraPB.idEntity}" />
+											</p:commandLink></td>
 									</tr>
 								</ui:repeat>
 							</tbody>
 							<tfoot>
 								<tr>
-									<td colspan="5"><ui:include
+									<td colspan="7"><ui:include
 											src="/templates/paginatedScroller.xhtml">
 											<ui:param name="entityPageBean" value="#{chequeraPB}" />
 											<ui:param name="render" value="f1" />
@@ -80,70 +105,46 @@
 			id="dlg1" closable="false" appendTo="@(body)">
 		 <ui:include src="/bancos/chequeraCE.xhtml" /> 
 		</p:dialog>
-		
 
+		<p:dialog header="#{content['field.title.info.general']}"
+			widgetVar="dlg3" modal="true" resizable="false" draggable="false"
+			id="dlg3" closable="false" appendTo="@(body)">
+			<ui:include src="/bancos/chequeraInfo.xhtml" />
+		</p:dialog>
 
-		<p:dialog
-			header="#{content['field.label.information.account']}"
-			widgetVar="dlg2" modal="true" resizable="false" draggable="false"
-			id="dlg2" closable="false" appendTo="@(body)">
-			<h:form id="f3">
-				<div class="panel panel-primary"
-					style="margin-top: -5px; min-width: 375px;">
-					<div class="panel-heading">
-						<i class="fa fa-bar-chart-o fa-fw"></i>#{content['field.label.information.general']}
-					</div>
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<table>
-							<tr>
-								<td><strong> <h:outputLabel
-											value="#{content['field.title.bank']}" />
-								</strong></td>
-								<td>#{chequeraPB.entity.cuentaID.bancoID.nombre}</td>
-							</tr>
-							<tr>
-								<td><strong> <h:outputLabel
-											value="#{content['field.label.account.no']}" />
-								</strong></td>
-								<td>#{chequeraPB.entity.cuentaID.numero} </td>
-							</tr>
-							<tr>
-								<td><strong> <h:outputLabel
-											value="#{content['field.label.account.type']}" />
-								</strong></td>
-								<td>#{chequeraPB.entity.cuentaID.tipo} </td>
-							</tr>
-							<tr>
-								<td><strong> <h:outputLabel
-											value="#{content['field.label.account.moneda']}" />
-								</strong></td>
-								<td>#{chequeraPB.entity.cuentaID.moneda.moneda} </td>
-							</tr>
-							<tr>
-								<td><strong> <h:outputLabel
-											value="#{content['field.label.account.date']}" />
-								</strong></td>
-								<td><h:outputText
-										value="#{chequeraPB.entity.cuentaID.fechaApertura}">
-										<f:convertDateTime pattern="dd/MM/yyyy" />
-									</h:outputText></td>
-							</tr>
-							<tr>
-								<td><strong> <h:outputLabel
-											value="#{content['label.state']}" />
-								</strong></td>
-								<td>#{chequeraPB.entity.cuentaID.estado?
-									content['label.enabled']:content['label.disabled']} </td>
-							</tr>
-						</table>
+		<p:dialog header="#{content['field.label.change.state']}"
+			widgetVar="dlg4" modal="true" resizable="false" draggable="false"
+			id="dlg4" closable="false" appendTo="@(body)">
+			<h:form id="f4">
+				<div style="width: 250px;">
+					<table>
+						<tr>
+							<td>
+								<h:outputText value="#{content['label.state']}" />
+							</td>
+							<td>
+								<h:selectOneMenu styleClass="form-control" value="#{chequeraPB.changeState}">
+									<f:selectItems value="#{chequeraPB.changeStateUI}"/>
+								</h:selectOneMenu>
+							</td>
+						</tr>
+					
+					</table>
+					
+					<div class="pager">
+						<p:commandButton update=":f1" action="#{chequeraPB.saveChangeState}"
+							value="#{content['field.save']}" styleClass="btn btn-default">
+						</p:commandButton>
+						
+						<p:commandButton value="#{content['field.cancel']}"
+							styleClass="btn btn-default" immediate="true"
+							oncomplete="PF('dlg4').hide();">
+						</p:commandButton>
 					</div>
 				</div>
-				<p:commandButton value="#{content['field.return']}"
-					styleClass="btn btn-default" immediate="true"
-					oncomplete="PF('dlg2').hide();">
-				</p:commandButton>
 			</h:form>
 		</p:dialog>
+
+
 	</ui:define>
 </ui:composition>

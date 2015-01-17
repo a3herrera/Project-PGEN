@@ -47,7 +47,10 @@
 											</p:commandLink></td>
 										<td><small> #{cuenta.tipo} </small></td>
 										<td><small> #{cuenta.moneda.moneda} </small></td>
-										<td><small> #{cuenta.fechaApertura} </small></td>
+										<td><small> <h:outputText
+													value="#{cuenta.fechaApertura}">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText></small></td>
 										<td><small>#{cuenta.estado?
 												content['label.enabled']:content['label.disabled']}</small></td>
 									</tr>

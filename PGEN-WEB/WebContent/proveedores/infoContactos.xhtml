@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<div class="panel panel-info" style="margin-top: -5px;">
+		<div class="panel-heading">
+			<i class="fa fa-bar-chart-o fa-fw"></i>#{content['label.contacts']}
+			<div class="pull-right">
+				<div class="btn-group">
+					<h:commandLink title="#{content['field.new']}"
+						styleClass="btn btn-primary btn-xs" ajax="true" 
+						action="#{entityPageBean.newEntity()}">
+						<span class="glyphicon glyphicon-plus"> </span>
+					</h:commandLink>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+				<div id="morris-area-chart">
+					<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><p:outputLabel value="#{content['label.nombre.primer']}" /></th>
+							<th><p:outputLabel
+									value="#{content['label.nombre.segundo']}" /></th>
+							<th><p:outputLabel
+									value="#{content['label.nombre.tercero']}" /></th>
+							<th><p:outputLabel
+									value="#{content['label.apellido.primero']}" /></th>
+							<th><p:outputLabel
+									value="#{content['label.apellido.segundo']}" /></th>
+						</tr>
+					</thead>
+					<tbody>
+							<ui:repeat var="contacto" value="#{entity.contactos}">
+								<tr>
+								<td><small> #{contacto.primerNombre} </small></td>
+								<td><small> #{contacto.segundoNombre} </small></td>
+								<td><small> #{contacto.tercerNombre} </small></td>
+								<td><small> #{contacto.primerApellido}</small></td>
+								<td><small> #{contacto.segundoApellido} </small></td>
+
+							</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+</ui:composition>

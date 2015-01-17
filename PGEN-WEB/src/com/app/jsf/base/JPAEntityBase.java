@@ -61,7 +61,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 
 	protected String getListQL() {
 		if (Utils.isEmtpy(listQL)) {
-			listQL = "Select e from " + getClassName().getSimpleName() + " e";
+			listQL = "Select e from " + getClassName().getSimpleName() + " e ";
 			if (!Utils.isEmtpy(whereQL)) {
 				listQL += whereQL;
 			}
@@ -72,7 +72,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 	protected String getCountQL() {
 		if (Utils.isEmtpy(countQL)) {
 			countQL = "Select count(e) from " + getClassName().getSimpleName()
-					+ " e";
+					+ " e ";
 			if (!Utils.isEmtpy(whereQL)) {
 				countQL += whereQL;
 			}
@@ -87,6 +87,10 @@ public class JPAEntityBase<E> extends JPABase<E> {
 		return params;
 	}
 
+	protected void newParams(){
+		params = new HashMap<String, Object>();
+	}
+	
 	protected void setParam(String key, Object value) {
 		getParams().put(key, value);
 	}
@@ -173,6 +177,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 				if (beforeSave(em)) {
 					em.getTransaction().begin();
 					try {
+						System.out.println("IS NEW" + isNew());
 						if (isNew()) {
 							createEntity(entity, em);
 						} else {
@@ -255,7 +260,7 @@ public class JPAEntityBase<E> extends JPABase<E> {
 				beforeList();
 				listEntity = findListE(getListQL(), page, pageSize,
 						getParams(), em);
-				countEntity = countE(getCountQL(), em);
+				countEntity = countE(getCountQL(),getParams(), em);
 			} catch (Exception e) {
 				// logger the Exception
 				countEntity = 0;

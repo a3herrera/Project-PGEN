@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -12,10 +13,10 @@ import javax.persistence.EntityManager;
 
 import org.primefaces.context.RequestContext;
 
+import com.app.bussiness.CheckBookBusinessLogicLocal;
 import com.app.entity.banks.ChequeE;
 import com.app.entity.banks.ChequeraE;
 import com.app.entity.banks.CuentaE;
-import com.app.entity.enums.EstadoCheque;
 import com.app.entity.enums.EstadoChequera;
 import com.app.entity.security.UsuarioE;
 import com.app.jsf.base.JPABase;
@@ -32,15 +33,18 @@ public class ChequeraPageBean extends JPAEntityBean<ChequeraE> {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private CheckBookBusinessLogicLocal checkBookLogic;
+
 	@Override
 	protected String navigationOption() {
 		if (isNew()) {
-			infMsg(msgCreate);
+			infMsg(getMsg().getString("message.chequera.save"));
 			RequestContext.getCurrentInstance().update("f1");
 			RequestContext.getCurrentInstance().execute("dlg1.hide()");
 			return newNR;
 		} else {
-			infMsg(msgUpdate);
+			infMsg(getMsg().getString("message.chequera.save.edit"));
 			RequestContext.getCurrentInstance().update("f1");
 			RequestContext.getCurrentInstance().execute("dlg1.hide()");
 			return updateNR;
@@ -81,12 +85,16 @@ public class ChequeraPageBean extends JPAEntityBean<ChequeraE> {
 			return false;
 		}
 
-		if (isNew()) {
-			List<ChequeE> cheques = obtenerCheques(entity.getEstado());
+		if (Utils.isEmptyList(entity.getCheques())) {
+			List<ChequeE> cheques = checkBookLogic.createChecksList(entity.getEstado(), entity);
 			if (!Utils.isEmptyList(cheques)) {
 				entity.setCheques(cheques);
 			}
+		}
 
+		// Realiza el Cambio de los estados de los cheques
+		if (!isNew() && !Utils.isEmptyList(entity.getCheques())) {
+			changeStateChecks(entity);
 		}
 
 		UsuarioE user = (UsuarioE) getSessionScope().get(Constants.USER);
@@ -101,17 +109,29 @@ public class ChequeraPageBean extends JPAEntityBean<ChequeraE> {
 		return super.beforeSave(em);
 	}
 
+	private void changeStateChecks(ChequeraE chequera) {
+		if (!Utils.isEmptyList(chequera.getCheques())) {
+			for (ChequeE e : chequera.getCheques()) {
+				e.setEstado(checkBookLogic.getNewStateCheck(
+						chequera.getEstado(), e.getEstado()));
+			}
+		}
+
+	}
+
 	private boolean verifyNumbers() {
 		boolean isOk = true;
 
 		if (entity.getNumeroInicial() <= 0) {
 			isOk = false;
-			warningMsg("init",getMsg().getObject("message.chequera.number").toString());
+			warningMsg("init", getMsg().getObject("message.chequera.number")
+					.toString());
 		}
 
 		if (entity.getNumeroFinal() <= 0) {
 			isOk = false;
-			warningMsg("ending",getMsg().getObject("message.chequera.number").toString());
+			warningMsg("ending", getMsg().getObject("message.chequera.number")
+					.toString());
 		}
 
 		if (isOk) {
@@ -120,47 +140,12 @@ public class ChequeraPageBean extends JPAEntityBean<ChequeraE> {
 				return false;
 			} else {
 				entity.setTotalCheques((entity.getNumeroFinal() - entity
-						.getNumeroInicial()));
+						.getNumeroInicial()) + 1);
 			}
 		}
 		return isOk;
 	}
 
-	private List<ChequeE> obtenerCheques(EstadoChequera estado) {
-
-		EstadoCheque state = EstadoCheque.GENERADO;
-		switch (estado) {
-		case HABILITIDA:
-			state = EstadoCheque.DISPONIBLE;
-			break;
-		case LIBERADA:
-			state = EstadoCheque.GENERADO;
-			break;
-		case NUEVA:
-			state = null;
-			break;
-		case CANCELADA:
-			state = EstadoCheque.CANCELADO;
-			break;
-		case CONGELADA:
-			state = EstadoCheque.RETENIDO;
-			break;
-		case INHABILITADA:
-			state = EstadoCheque.CANCELADO;
-			break;
-
-		}
-		List<ChequeE> cheques = new ArrayList<ChequeE>();
-		long initValue = entity.getNumeroInicial();
-		long number = entity.getTotalCheques();
-		if (number > 0 && state != null) {
-			for (long x = 1; x <= number; x++) {
-				cheques.add(new ChequeE(initValue, getEntity(), state));
-				initValue++;
-			}
-		}
-		return cheques;
-	}
 
 	private List<CuentaE> cuentas;
 	private String listQLCuentas = "SELECT e from CuentaE e where e.estado = true";
@@ -221,28 +206,85 @@ public class ChequeraPageBean extends JPAEntityBean<ChequeraE> {
 		for (CuentaE cuenta : cuentas) {
 			if (cuenta.getID() == idPerfil) {
 				getEntity().setCuentaID(cuenta);
-				System.out.println("id cuenta seteada");
 				break;
 			}
 		}
 	}
 
-	@Override
-	public String saveEntity() {
-		// TODO Auto-generated method stub
-		System.out.println("EJECUTANDO LA ACCION ");
-		return super.saveEntity();
-	}
-
-	public void test() {
-		System.out.println("EJECUTANDO LA ACCION ");
-	}
-	
 	public boolean isNumberReadOnly() {
 		if (!isNew()) {
 			return getEntity().getEstado() != EstadoChequera.NUEVA;
 		}
 		return false;
+	}
+
+	public boolean showGeneralInfo(EstadoChequera estado) {
+		if (estado.equals(EstadoChequera.NUEVA)) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean showChangeState(EstadoChequera estado) {
+		if (estado.equals(EstadoChequera.CANCELADA)) {
+			return false;
+		}
+		return true;
+	}
+
+	public List<SelectItem> getChangeStateUI() {
+		List<SelectItem> items = new ArrayList<SelectItem>();
+
+		if (entity != null && entity.getEstado() != null) {
+			List<EstadoChequera> estados = getStates(entity.getEstado());
+			for (EstadoChequera e : estados) {
+				items.add(new SelectItem(e));
+			}
+		}
+		return items;
+	}
+
+	private List<EstadoChequera> getStates(EstadoChequera state) {
+		List<EstadoChequera> states = new ArrayList<EstadoChequera>();
+		for (EstadoChequera e : EstadoChequera.values()) {
+			states.add(e);
+		}
+		switch (state) {
+		case HABILITIDA:
+			states.remove(EstadoChequera.HABILITIDA);
+			states.remove(EstadoChequera.LIBERADA);
+			break;
+		case CONGELADA:
+			states.remove(EstadoChequera.CONGELADA);
+			states.remove(EstadoChequera.LIBERADA);
+			break;
+		case LIBERADA:
+			states.remove(EstadoChequera.LIBERADA);
+			break;
+
+		default:
+			break;
+		}
+		states.remove(EstadoChequera.NUEVA);
+		states.remove(EstadoChequera.INHABILITADA);
+		return states;
+	}
+
+	private EstadoChequera changeState;
+
+	public EstadoChequera getChangeState() {
+		return changeState;
+	}
+
+	public void setChangeState(EstadoChequera changeState) {
+		getEntity().setEstado(changeState);
+	}
+
+	public void saveChangeState() {
+		saveEntity();
+		infMsg(getMsg().getString("message.chequera.save.edit"));
+		RequestContext.getCurrentInstance().update("f1");
+		RequestContext.getCurrentInstance().execute("dlg4.hide()");
 	}
 
 }

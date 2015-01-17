@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f2">
+		<div style="min-width: 350px;">
+			<table class="table">
+				<tr>
+					<td><p:outputLabel value="#{content['label.provider']}" /></td>
+					<td><h:selectOneMenu value="#{comprasPB.proveedorID}" styleClass="form-control">
+							<f:selectItems value="#{comprasPB.providersInfoUI}" />
+						</h:selectOneMenu></td>
+				</tr>
+				<tr>
+					<td><p:outputLabel
+							value="#{content['field.label.account.ammount']}" /></td>
+					<td>
+						<h:inputText value="#{comprasPB.entity.monto}"
+							styleClass="form-control"  />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><p:messages id="messages1" showDetail="true"
+							globalOnly="true" showSummary="false" autoUpdate="true"
+							closable="true" /></td>
+				</tr>
+			</table>
+
+			<div class="pager">
+				<p:commandButton  update=":f1" action="#{comprasPB.nuevaCompraGeneral()}"
+					value="#{content['field.save']}" styleClass="btn btn-default">
+				</p:commandButton>
+				<p:commandButton value="#{content['field.cancel']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg1').hide();">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

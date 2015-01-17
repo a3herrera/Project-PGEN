@@ -70,3 +70,36 @@ CREATE TABLE PROVEEDORES_HISTORY (
   	START_DATE 		TIMESTAMP 							NULL, 
 	END_DATE 		TIMESTAMP 							NULL
 	);
+	
+
+CREATE TABLE INFO_PERSONAS_HISTORY (
+		ID_PERSONA 				    NUMBER(19) 						NOT NULL,  
+		FECHA_NACIMIENTO 		  DATE 							    NULL, 
+		PRIMER_NOMBRE 			  VARCHAR2(25) 					NOT NULL, 
+		SEGUNDO_NOMBRE 			  VARCHAR2(25) 					NULL, 
+		TERCER_NOMBRE 			  VARCHAR2(25) 					NULL, 
+		PRIMER_APELLIDO 		  VARCHAR2(25) 					NULL, 
+		SEGUNDO_APELLIDO 		  VARCHAR2(25) 					NULL,
+    ID_PROVEEDOR          NUMBER(19)  	        NULL,
+		TYPE_ 					      VARCHAR2(31) 					NULL, 
+		REG_CREACION 			    TIMESTAMP 						NULL, 
+		REG_ULT_MODIFICACION 	TIMESTAMP 					  NULL, 
+		VERSION 				      NUMBER(19) 						NULL,
+    START_DATE 		        TIMESTAMP 						NULL, 
+    END_DATE 		          TIMESTAMP 						NULL
+  );
+  
+  
+CREATE TABLE DOCUMENTOS_PERSONA_HISTORY(
+  ID_DOC_PERSONA    NUMBER(19)                      NOT NULL,
+  ID_PERSONA        NUMBER(19)                      NOT NULL,
+  ID_DOCUMENTO      NUMBER(19)                      NOT NULL,
+  VALOR             VARCHAR(100)                    NOT NULL,
+  ADDED_BY 				  NUMBER(19) 						          NULL, 
+	UPDATED_BY 		    VARCHAR2(64) 						        NULL, 
+	ADD_DATE 		      TIMESTAMP 		DEFAULT SYSDATE		NOT NULL, 
+	UPDATE_DATE 	    TIMESTAMP 							        NULL, 
+	VERSION 		      NUMBER(19) 							        NULL,
+  START_DATE 		TIMESTAMP 							NULL, 
+	END_DATE 		TIMESTAMP 							NULL
+);

@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f3">
+		<div style="width: 500px;">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							<td width="100px;"><h:outputLabel
+									value="#{content['field.title.bank']}" /></td>
+							<td>#{chequeraPB.entity.cuentaID.bancoID.nombre}</td>
+							<td width="100px;"/>
+							<td/>
+						</tr>
+						<tr>
+							<td><h:outputLabel
+									value="#{content['field.label.account.no']}" /></td>
+							<td>#{chequeraPB.entity.cuentaID.numero}</td>
+							<td><h:outputLabel
+									value="#{content['field.label.account.moneda']}" /></td>
+							<td>#{chequeraPB.entity.cuentaID.moneda.moneda}</td>
+						</tr>
+						<tr>
+							<td><h:outputLabel
+									value="#{content['field.label.checkbook.number']}" /></td>
+							<td>#{chequeraPB.entity.numero}</td>
+							<td><h:outputLabel value="#{content['label.state']}" /></td>
+							<td>#{chequeraPB.entity.estado}</td>
+						</tr>
+						<tr>
+							<td><h:outputLabel
+									value="#{chequeraPB.entity.fechaAutorización!=null?
+								content['field.label.releaseDate']: ''}" />
+
+							</td>
+							<td><h:outputText
+									value="#{chequeraPB.entity.fechaAutorización}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText></td>
+							<td><h:outputLabel
+									value="#{chequeraPB.entity.fechaAutorización!=null?
+								content['field.label.endingDate']: ''}" />
+
+							</td>
+							<td><h:outputText
+									value="#{chequeraPB.entity.fechaBaja}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText></td>
+
+						</tr>
+						<tr>
+							<td><h:outputLabel
+									value="#{content['field.label.totalCheks']}" /></td>
+							<td>#{chequeraPB.entity.totalCheques}</td>
+							<td><h:outputLabel
+									value="#{content['field.label.checksissued']}" /></td>
+							<td>#{chequeraPB.entity.totalCheques}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="pager">
+				<p:commandButton value="#{content['field.return']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg3').hide();">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

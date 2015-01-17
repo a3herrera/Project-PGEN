@@ -3,7 +3,6 @@ package com.app.ejb;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -120,11 +119,11 @@ public class RequestHandler implements RequestsHandlerLocal {
 		return trans.getTransaccion();
 	}
 
-	private Map<String, Object> params;
-	
-	private static final String QL_DEBITOS = "SELECT e from DebitosE e where e.idCuenta = :idCuenta and e.FechaSolicitud between :since and :until";
-	private static final String QL_CREDITOS = "SELECT e from CreditosE e where e.idCuenta = :idCuenta and e.FechaSolicitud between :since and :until";
-	
+//	private Map<String, Object> params;
+//	
+//	private static final String QL_DEBITOS = "SELECT e from DebitosE e where e.idCuenta = :idCuenta and e.FechaSolicitud between :since and :until";
+//	private static final String QL_CREDITOS = "SELECT e from CreditosE e where e.idCuenta = :idCuenta and e.FechaSolicitud between :since and :until";
+//	
 	/**
 	 * @see RequestsHandlerLocal#getDebits(long, Date, Date)
 	 */

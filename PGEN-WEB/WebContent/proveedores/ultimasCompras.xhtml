@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f4">
+		<div style="width: 550px;">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					#{content['field.title.providers.last.purchase']}
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#{content['label.field.buy.date']}</th>
+								<th>#{content['field.label.account.ammount']}</th>
+								<th>#{content['label.state']}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="compra" value="#{proveedoresPB.compras}">
+								<tr>
+									<td><h:outputLabel value="#{compra.fechaCompra}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputLabel></td>
+									<td>
+										#{compra.estado}
+									</td>
+									<td>#{compra.monto}</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="pager">
+				<p:commandButton value="#{content['field.return']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg3').hide();">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

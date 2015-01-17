@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f1">
+		<div class="panel panel-info" style="margin-top: -5px;">
+			<div class="panel-heading">
+				<i class="fa fa-bar-chart-o fa-fw"></i>#{content['field.title.info.general']}
+				<div class="pull-right">
+					<div class="btn-group">
+						<p:commandLink title="#{content['field.new']}"
+							styleClass="btn btn-primary btn-xs" ajax="true" update=":dlg1"
+							action="#{proveedoresPB.newEntity()}"
+							oncomplete="PF('dlg1').show();">
+							<span class="glyphicon glyphicon-plus"> </span>
+						</p:commandLink>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="panel-body">
+				<div id="morris-area-chart">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th><p:outputLabel value="#{content['label.name']}" /></th>
+								<th><p:outputLabel value="#{content['label.nit']}" /></th>
+								<th><p:outputLabel value="#{content['label.state']}" /></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="proveedor" value="#{proveedoresPB.paginatedList}">
+								<tr>
+									<td>
+									<p:commandLink value=" #{proveedor.nombre}"
+											action="#{proveedoresPB.edicion()}" update=":dlg1"
+											oncomplete="PF('dlg1').show();">
+											<f:setPropertyActionListener value="#{proveedor.ID}"
+												target="#{proveedoresPB.idEntity}" />
+
+										</p:commandLink></td>
+									<td><small> #{proveedor.nit} </small></td>
+									<td><small> #{proveedor.estado} </small></td>
+									<td><p:commandLink
+											title="#{content['field.title.providers.last.purchase']}"
+											styleClass="btn btn-xs" ajax="true"
+											oncomplete="PF('dlg3').show();" update=":dlg3">
+											<span class="glyphicon glyphicon-list-alt"> </span>
+											<f:setPropertyActionListener value="#{proveedor}"
+												target="#{proveedoresPB.entity}" />
+										</p:commandLink></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="4"><ui:include
+										src="/templates/paginatedScroller.xhtml">
+										<ui:param name="entityPageBean" value="#{proveedoresPB}" />
+										<ui:param name="render" value="f1" />
+										<ui:param name="showAdd" value="false" />
+									</ui:include></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</h:form>
+	<p:dialog
+		header="#{proveedoresPB.new? content['field.title.providers.new']:content['field.title.providers.edit']}"
+		widgetVar="dlg1" modal="true" resizable="false" draggable="false"
+		id="dlg1" closable="false" appendTo="@(body)">
+		<ui:include src="/proveedores/proveedorCE.xhtml" />
+	</p:dialog>
+	
+	<p:dialog
+		widgetVar="dlg2" modal="true" resizable="false" draggable="false"
+		id="dlg2" closable="false" appendTo="@(body)">
+		<h:form id="f3">
+			<div style="min-width: 500px;">
+				<ui:include src="/proveedores/infoContactos.xhtml">
+					<ui:param name="entityPageBean" value="#{proveedoresPB}" />
+					<ui:param name="entity" value="#{proveedoresPB.entity}" />
+				</ui:include>
+				<div class="pager">
+					<p:commandButton value="#{content['field.return']}"
+						styleClass="btn btn-default" immediate="true"
+						oncomplete="PF('dlg2').hide();">
+					</p:commandButton>
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog widgetVar="dlg3" modal="true" resizable="false" draggable="false"
+		id="dlg3" closable="false" appendTo="@(body)">
+		<ui:include src="/proveedores/ultimasCompras.xhtml" />
+	</p:dialog>	
+</ui:composition>

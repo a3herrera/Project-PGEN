@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="f2">
+		<div style="min-width: 450px;">
+			<div class="panel panel-info">
+				<div class="panel-heading">#{content['field.title.info.general']}</div>
+				<div class="panel-body">
+					<table class="table table-hover table-bordered">
+						<tr>
+							<td><strong> <p:outputLabel
+										value="#{content['label.name']}" />
+							</strong></td>
+							<td><h:inputText value="#{proveedoresPB.entity.nombre}"
+									styleClass="form-control" id="name" /></td>
+						</tr>
+						<tr>
+							<td><strong> <p:outputLabel
+										value="#{content['label.nit']}" />
+							</strong></td>
+							<td><h:inputText value="#{proveedoresPB.entity.nit}"
+									styleClass="form-control" id="nit" /></td>
+						</tr>
+						<tr>
+							<td><strong><p:outputLabel
+										value="#{content['label.state']}" /> </strong></td>
+							<td><h:selectOneMenu value="#{proveedoresPB.entity.estado}"
+									styleClass="form-control">
+									<f:selectItems value="#{proveedoresPB.estadosUI}" />
+								</h:selectOneMenu></td>
+						</tr>
+					</table>
+					<p:messages id="messages1" showDetail="true"
+							globalOnly="true" showSummary="false" autoUpdate="true"
+							closable="true" />
+				</div>
+			</div>
+
+			<div class="pager">		
+				<p:commandButton update=":f1" action="#{proveedoresPB.saveEntity()}"
+					value="#{content['field.save']}" styleClass="btn btn-default">
+				</p:commandButton>
+				<p:commandButton value="#{content['field.cancel']}"
+					styleClass="btn btn-default" immediate="true"
+					oncomplete="PF('dlg1').hide();">
+				</p:commandButton>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>
